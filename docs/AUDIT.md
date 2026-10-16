@@ -1,6 +1,8 @@
-# Implementation audit — 16 October 2026
+# Implementation audit — version 0.4.1, 16 October 2026
 
 The core learning and troubleshooting product is implemented and publicly deployed. The audit found defects that the previous passing suite did not detect; those required correction. This is a scoped implementation review, not certification that all possible Terraform guidance, browser behavior or security properties are correct.
+
+This is a historical audit snapshot. Later implementation progress is tracked in [EXECUTION_TRACKER.md](EXECUTION_TRACKER.md).
 
 ## Baseline evidence
 
@@ -57,4 +59,4 @@ The test-only baseline [run 38956106819](https://github.com/dazzo31/terraformuns
 - Branch protection, private vulnerability reporting and administrative Pages settings could not be verified through available repository access. Successful deployment proves the public serving path, not those policies.
 - The deployment guard checks main at the start; it is not a transactional freeze of the branch. Post-deployment verification reports a failure but does not automatically roll back an already published deployment.
 
-Release publication: the corrected candidate is ready for promotion. Exact-main Checks and the strengthened public byte-verification gate must pass before declaring 0.4.1 published. Their results are retained in GitHub Actions.
+Release publication: 0.4.1 was merged as `897ce9af29b29c7a1076bc20fd1037d17891cca5`. Exact-main [Checks 38957417034](https://github.com/dazzo31/terraformunstuck/actions/runs/38957417034) passed 55 local and 138 browser checks plus both Terraform versions. [Pages 38957862104](https://github.com/dazzo31/terraformunstuck/actions/runs/38957862104) verified all 18 assets and the directory entry point byte-for-byte. Independent HTTP checks confirmed the public page and app.js matched source and returned 200.

@@ -60,3 +60,11 @@ The runnable fixture targets Terraform 1.4+ and is checked on 1.4.7 and 1.14.0. 
 ## Audit corrections — 16 October 2026
 
 The installation recipe now links to https://developer.hashicorp.com/terraform/install and the version command to https://developer.hashicorp.com/terraform/cli/commands/version, replacing unrelated init links. Both official references were opened and reviewed during the audit. No new Terraform compatibility claim is introduced.
+
+## Variable-file practice — reviewed 16 October 2026
+
+- https://developer.hashicorp.com/terraform/language/values/variables — root inputs, custom variable files, precedence, child-module differences and sensitive-value limits.
+- https://developer.hashicorp.com/terraform/cli/commands/plan — input selection and non-applying plan behavior.
+- https://developer.hashicorp.com/terraform/language/resources/terraform-data — built-in local resource.
+
+The shared fixture uses Terraform 1.4+ syntax. Local executable checks target 1.4.7 and 1.14.0; candidate results are recorded in the execution tracker. The sample uses non-secret values and is a local CLI workflow, not an HCP Terraform or cloud provider procedure.
