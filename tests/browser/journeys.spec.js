@@ -29,16 +29,16 @@ test('keyboard search closes with Escape and skip link reaches content',async({p
  await page.keyboard.press('Control+k');await expect(page.locator('#global-search')).toBeFocused();await page.locator('#global-search').fill('state lock');
  await expect(page.locator('.search-result').first()).toContainText('state lock');await page.keyboard.press('Escape');await expect(page.locator('#search-dialog')).not.toBeVisible();
 });
-test('triage preserves unknown/active lock ownership and navigates to the matching guide',async({page})=>{
+test('triage preserves unknown/active lock ownership and navigates to the matching guide',async({page},info)=>{
  await page.goto('#fix');await page.locator('#triage-phase').selectOption('plan');await page.locator('#triage-symptom').selectOption('state-locked');
- await expect(page.locator('#triage-result')).toContainText('owner is unknown');await page.locator('#triage-owner').selectOption('active');await expect(page.locator('#triage-result')).toContainText('Do not remove');
+ await expect(page.locator('#triage-result')).toContainText('owner is unknown');await page.locator('#triage-owner').selectOption('active');await expect(page.locator('#triage-result')).toContainText('Do not remove');await page.screenshot({path:`test-results/triage-${info.project.name}.png`,fullPage:true});
  await page.locator('#triage-result a').click();await expect(page).toHaveURL(/#recipe\/state-locked$/);
  await page.goBack();await expect(page.locator('#triage-owner')).toHaveValue('active');
 });
-test('understanding feedback gates new lesson completion',async({page})=>{
+test('understanding feedback gates new lesson completion',async({page},info)=>{
  await page.goto('#lesson/read-plan');const complete=page.locator('[data-complete="read-plan"]');await expect(complete).toBeDisabled();
  await page.locator('[data-exercise="read-plan"][value="0"]').check();await page.getByRole('button',{name:'Check my understanding'}).click();await expect(page.locator('#exercise-feedback')).toContainText('Have another look');await expect(complete).toBeDisabled();
- await page.locator('[data-exercise="read-plan"][value="2"]').check();await page.getByRole('button',{name:'Check my understanding'}).click();await expect(complete).toBeEnabled();await complete.click();
+ await page.locator('[data-exercise="read-plan"][value="2"]').check();await page.getByRole('button',{name:'Check my understanding'}).click();await expect(complete).toBeEnabled();await page.screenshot({path:`test-results/lesson-${info.project.name}.png`,fullPage:true});await complete.click();
  await page.reload();await expect(complete).toContainText('Marked complete');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('tfu-progress')))).toContain('read-plan');
 });
 test('diagnostics rank evidence, keep independent contexts and clear input',async({page})=>{

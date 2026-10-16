@@ -51,6 +51,7 @@ jobs:
         run: |
           node --input-type=module <<'JS'
           const root = new URL(process.env.PAGE_URL);
+          if (!root.pathname.endsWith('/')) root.pathname += '/';
           for (const path of ['', 'assets/js/app.js', 'assets/js/views/guidance.js']) {
             let success = false;
             for (let attempt = 0; attempt < 8; attempt++) {

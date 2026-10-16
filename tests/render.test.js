@@ -17,6 +17,7 @@ test('all implemented routes render a single meaningful page heading',()=>{for(c
 test('all rendered internal topic links resolve to known routes',()=>{for(const route of routes){for(const [,target] of render(route).matchAll(/href="#([^"]+)"/g))assert.ok(routes.includes(target),`${route} -> ${target}`);}});
 test('unknown and malformed routes render a useful fallback',()=>{for(const route of ['lesson/missing','recipe/missing','workflow/missing','learn/not-a-page','%ZZ'])assert.match(render(route),/Let’s get you back on track/);});
 test('unsafe text is escaped at the rendering boundary',()=>{assert.equal(escapeHTML('<img src=x onerror="alert(1)">&\''),'&lt;img src=x onerror=&quot;alert(1)&quot;&gt;&amp;&#39;');});
+test('Escape explicitly closes search before the native search-input default',()=>{const dialog=node('#search-dialog');dialog.open=true;let prevented=false;listeners.keydown({key:'Escape',target:{tagName:'INPUT'},preventDefault(){prevented=true;}});assert.equal(dialog.open,false);assert.ok(prevented);});
 test('a pasted marker survives internal navigation only in memory and stays escaped',()=>{
  render('fix');const marker='<script>private-marker-123</script>';
  listeners.input({target:{id:'error-input',value:marker}});

@@ -4,7 +4,7 @@ export const symptoms = {
   init: [['provider-download','A provider cannot download'],['provider-version','Provider versions conflict'],['backend-init','The backend needs initialisation'],['authentication','A service rejects credentials']],
   validate: [['invalid-input','An argument or variable is invalid'],['dependency-cycle','There is a dependency cycle']],
   plan: [['state-locked','The state is locked'],['unexpected-destroy','There is an unexpected deletion'],['replacement','A resource must be replaced'],['unknown-instances','Instance keys are unknown'],['drift','Something changed outside Terraform'],['no-changes','I expected changes but the plan is empty'],['authentication','A service rejects credentials']],
-  apply: [['partial-apply','The operation failed after some changes'],['already-exists','A resource already exists'],['authentication','A service rejects credentials']],
+  apply: [['state-locked','The state is locked'],['partial-apply','The operation failed after some changes'],['already-exists','A resource already exists'],['authentication','A service rejects credentials']],
   ci: [['ci-exit-code','The plan returned exit code 2'],['authentication','Credentials work locally but fail in CI'],['state-locked','The state is locked']]
 };
 export function nextCheck({phase='unknown',symptom='unknown',owner='unknown'}={}) {
