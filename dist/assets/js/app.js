@@ -90,6 +90,14 @@ document.addEventListener('change',event=>{
 });
 $('#global-search').addEventListener('keydown',event=>{if(event.key==='Enter'){const first=$('.search-result');if(first){first.click();}}});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&$('#search-dialog').open){event.preventDefault();$('#search-dialog').close();return;}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}else if(event.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(event.target.tagName)&&!event.target.isContentEditable){event.preventDefault();openSearch();}});
+// Keep keyboard navigation within the modal across browser focus implementations.
+$('#search-dialog').addEventListener('keydown',event=>{
+ if(event.key!=='Tab')return;
+ const items=[...event.currentTarget.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href],[tabindex="0"]')].filter(el=>el.getClientRects().length);
+ const first=items[0],last=items.at(-1);if(!first)return;
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+});
 $('#search-dialog').addEventListener('click',event=>{if(event.target===$('#search-dialog')){const r=event.target.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)event.target.close();}});
 $('#search-dialog').addEventListener('close',()=>{if(searchOpener?.isConnected)searchOpener.focus({preventScroll:true});searchOpener=null;});
 window.addEventListener('hashchange',()=>render({focus:true}));
