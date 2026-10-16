@@ -4,6 +4,7 @@ import {lessons,recipes,workflows} from '../../dist/assets/js/content.js';
 test('learn and fix are visible entry points with working navigation',async({page},info)=>{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('');await expect(page.getByRole('heading',{level:1})).toContainText('A clearer plan');
+ for(const link of await page.locator('header nav a').all()){const box=await link.boundingBox();expect(box.x>=0&&box.x+box.width<=page.viewportSize().width+1,'Navigation item must remain visible').toBe(true);}
  await page.getByRole('link',{name:'Learn Terraform',exact:true}).click();await expect(page).toHaveURL(/#learn$/);
  await page.goBack();await expect(page.getByRole('heading',{level:1})).toContainText('A clearer plan');
  await page.getByRole('link',{name:'Fix a problem',exact:true}).first().click();await expect(page.locator('#triage-phase')).toBeVisible();
@@ -15,10 +16,11 @@ test('all topic routes render, preserve one heading and avoid horizontal overflo
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),route).toBe(true);
  }
 });
-for(const theme of ['light','dark'])test(`core journeys pass automated accessibility checks in ${theme} theme`,async({page})=>{
+for(const theme of ['light','dark'])test(`core journeys pass automated accessibility checks in ${theme} theme`,async({page},info)=>{
  await page.goto('');if(theme==='dark')await page.locator('#theme-toggle').click();
  for(const route of ['home','learn','lesson/mental-model','fix','recipe/state-locked','workflow/start','reference','about']){
   await page.goto('#'+route);await expect(page.locator('main h1')).toHaveCount(1);
+  if(route==='home'&&theme==='dark')await page.screenshot({path:`test-results/home-dark-${info.project.name}.png`,fullPage:true});
   const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
   expect(result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})),route).toEqual([]);
  }
