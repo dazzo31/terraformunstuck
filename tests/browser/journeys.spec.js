@@ -62,3 +62,13 @@ test('simulator changes proposals and mode persists without losing the current r
  await page.goto('#lesson/mental-model');await page.locator('[data-scenario="rename"]').click();await expect(page.locator('#sim-output')).toContainText('1 to destroy');
  await page.locator('#advanced-mode').click();await expect(page.locator('.advanced-only')).toBeVisible();expect(page.url()).toContain('#lesson/mental-model');await page.locator('#theme-toggle').click();await page.reload();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await expect(page.locator('html')).toHaveAttribute('data-mode','advanced');
 });
+
+test('saved-plan recovery connects triage, diagnostics and search to the same guide',async({page},info)=>{
+ await page.goto('#fix');await page.locator('#triage-phase').selectOption('apply');await page.locator('#triage-symptom').selectOption('saved-plan');
+ await expect(page.locator('#triage-result')).toContainText('do not rewrite state');await page.locator('#triage-result a').click();await expect(page).toHaveURL(/#recipe\/saved-plan$/);
+ await expect(page.getByRole('heading',{level:1})).toHaveText('A saved plan can no longer be applied');await expect(page.locator('main')).toContainText('without a further confirmation');await expect(page.locator('main')).toContainText('Saved plans can contain secrets');
+ const audit=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(audit.violations).toEqual([]);
+ await page.screenshot({path:`test-results/saved-plan-${info.project.name}.png`,fullPage:true});
+ await page.goto('#fix');await page.locator('#error-input').fill('Error: Saved plan does not match the given state');await page.locator('#analyse').click();await expect(page.locator('#analysis-results a[href="#recipe/saved-plan"]')).toBeVisible();
+ await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('stale');await page.locator('.search-result[href="#recipe/saved-plan"]').click();await expect(page.getByRole('main')).toBeFocused();
+});

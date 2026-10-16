@@ -4,11 +4,12 @@ A visual Terraform learning guide and practical troubleshooting companion.
 
 **[Open the public site](https://dazzo31.github.io/terraformunstuck/)** · Understand the plan. Find the problem. Choose your next step.
 
-## Version 0.2.1
+## Version 0.3.0
 
 - Eight lessons with practical tasks, understanding checks and explanatory feedback.
-- Guided troubleshooting by failing phase, symptom and lock ownership, plus 16 full recipes.
-- Twelve local error patterns, ranked by specificity with related generic diagnostics labelled.
+- Guided troubleshooting by failing phase, symptom and lock ownership, plus 17 full recipes.
+- Thirteen local error patterns, ranked by specificity with related generic diagnostics labelled.
+- Saved-plan recovery through Apply/CI triage, diagnostic matching and search; stale state and wrong-state lineage are distinct branches.
 - Independent AWS/Azure/Google provider, local/S3/Azure Storage/HCP backend, execution and shell context.
 - Five workflows, four simulated plan scenarios, search, stable topic links, themes and optional local progress.
 
@@ -48,7 +49,7 @@ With Terraform installed:
 npm run test:terraform
 ```
 
-This uses a disposable local directory and the built-in terraform_data resource. It verifies creation, output, convergence, a changed value, an invalid reference and a moved address. CI pins Terraform 1.4.7 and 1.14.0. No cloud credentials or external providers are used. The disposable automated apply is confined to this test and is not recovery advice for real infrastructure.
+This uses a disposable local directory and the built-in terraform_data resource. It verifies creation, output, convergence, a changed value, an invalid reference a moved address, rejection of stale/wrong-lineage saved plans without state changes, and fresh-plan recovery. CI pins Terraform 1.4.7 and 1.14.0. No cloud credentials or external providers are used. The disposable automated apply is confined to this test and is not recovery advice for real infrastructure.
 
 ## Deployment
 

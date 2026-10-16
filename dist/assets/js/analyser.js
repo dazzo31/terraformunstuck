@@ -14,6 +14,7 @@ export const rules = [
  {id:'already-exists',pattern:/(?:error:[^\n]*(?:already exists|alreadyexists)|a resource with the id[^\n]*already exists)/i},
  {id:'dependency-cycle',pattern:/error:\s*cycle:/i},
  {id:'unknown-instances',pattern:/error:\s*invalid (?:for_each|count) argument/i},
+ {id:'saved-plan',pattern:/^\s*error:\s*saved plan (?:is stale|does not match the given state)\s*$/im},
  {id:'ci-exit-code',pattern:/terraform plan[^\n]*-detailed-exitcode[\s\S]{0,180}?(?:exit(?:ed with)? (?:code |status )?2|exitcode[=: ]+2)/i}
 ];
 export function analyse(raw) {

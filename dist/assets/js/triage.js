@@ -4,8 +4,8 @@ export const symptoms = {
   init: [['provider-download','A provider cannot download'],['provider-version','Provider versions conflict'],['backend-init','The backend needs initialisation'],['authentication','A service rejects credentials']],
   validate: [['invalid-input','An argument or variable is invalid'],['dependency-cycle','There is a dependency cycle']],
   plan: [['state-locked','The state is locked'],['unexpected-destroy','There is an unexpected deletion'],['replacement','A resource must be replaced'],['unknown-instances','Instance keys are unknown'],['drift','Something changed outside Terraform'],['no-changes','I expected changes but the plan is empty'],['authentication','A service rejects credentials']],
-  apply: [['state-locked','The state is locked'],['partial-apply','The operation failed after some changes'],['already-exists','A resource already exists'],['authentication','A service rejects credentials']],
-  ci: [['ci-exit-code','The plan returned exit code 2'],['authentication','Credentials work locally but fail in CI'],['state-locked','The state is locked']]
+  apply: [['saved-plan','A saved plan is stale or belongs to another state'],['state-locked','The state is locked'],['partial-apply','The operation failed after some changes'],['already-exists','A resource already exists'],['authentication','A service rejects credentials']],
+  ci: [['saved-plan','A saved-plan artifact is rejected'],['ci-exit-code','The plan returned exit code 2'],['authentication','Credentials work locally but fail in CI'],['state-locked','The state is locked']]
 };
 export function nextCheck({phase='unknown',symptom='unknown',owner='unknown'}={}) {
   const choices=symptoms[phase]??[];
@@ -17,6 +17,7 @@ export function nextCheck({phase='unknown',symptom='unknown',owner='unknown'}={}
   const messages={
     'unexpected-destroy':'Do not apply yet. Check the target context, affected addresses and missing configuration before deciding whether deletion is intended.',
     replacement:'Read the replacement reason and inspect changed attributes or addresses before approval.',
+    'saved-plan':'Read the exact diagnostic and verify artifact provenance, backend and workspace. Understand intervening changes before creating and reviewing a fresh plan; do not rewrite state to reuse the old artifact.',
     'partial-apply':'First identify which changes completed and whether any remote operation is still running. A failed apply is not a transaction rollback.',
     'already-exists':'Confirm the existing object’s identity and current owner before considering import.',
     'ci-exit-code':'Confirm -detailed-exitcode is present. Only then does 2 mean a successful plan with proposed changes.',
