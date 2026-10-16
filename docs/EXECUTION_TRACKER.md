@@ -1,6 +1,6 @@
 # Execution tracker
 
-Version 0.3.0 candidate — 16 October 2026.
+Version 0.3.0 — 16 October 2026.
 
 | Task | Status | Evidence / limits |
 | --- | --- | --- |
@@ -15,7 +15,7 @@ Version 0.3.0 candidate — 16 October 2026.
 | Browser / accessibility / privacy gate | Passed on candidate | 30 project/test combinations across Chromium desktop/mobile and Firefox; both-theme axe scans; screenshots inspected; see docs/VERIFICATION.md |
 | Publication gate | Implemented | All Checks jobs must pass for the exact main commit before Pages deployment; post-deploy public asset checks |
 | WebKit, narrow-screen and accessible interaction extension | Passed | All 90 combinations passed in run 38938525036 after fixing modal Tab wrapping; named landmarks, progress/status semantics, focus restoration, reduced motion and blocked storage; WebKit and narrow-screen screenshots inspected |
-| Saved-plan recovery (TF-017) | Candidate; CI pending | 17 recipes / 13 rules; triage and search; two rejection cases checked by disposable local Terraform tests; 96 browser combinations scheduled |
+| Saved-plan recovery (TF-017) | Verified candidate | 17 recipes / 13 rules; 51 local and 96 browser checks passed in run 38942934544; stale/wrong-lineage rejections reproduced on 1.4.7 and 1.14.0; desktop and mobile screenshots inspected |
 | Manual accessibility and physical devices | Outstanding | Automated accessibility-tree/interaction checks supplement, but do not replace, actual screen-reader and physical-device tests |
 | Broader provider/backend recipes | Future expansion | Context guidance is included; complete migration/recovery procedures require separate versioned validation |
 | Branch protection | Not verified | Workflow gates are implemented; repository administrative policy is not claimed |

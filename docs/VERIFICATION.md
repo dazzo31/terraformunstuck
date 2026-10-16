@@ -1,4 +1,4 @@
-# Verification — version 0.3.0 candidate
+# Verification — version 0.3.0
 
 ## Recorded local results (16 October 2026)
 
@@ -39,4 +39,6 @@ Before claiming screen-reader or device coverage, record the browser, operating 
 
 ## Version 0.3 saved-plan extension
 
-51 local unit/schema/rendering checks passed. Browser discovery finds 96 combinations; hosted execution is pending. The new journey covers triage, both diagnostic variants, search, the recipe accessibility scan and screenshots. The Terraform script now creates stale-state and distinct-workspace-lineage failures, checks that rejected applies leave state unchanged, and generates a fresh converged plan. Execution on 1.4.7 and 1.14.0 is pending CI. Physical-device, screen-reader and cloud-backend coverage remain outside these results.
+All 51 unit/schema/rendering checks, 96 browser combinations and both Terraform jobs passed in https://github.com/dazzo31/terraformunstuck/actions/runs/38942934544 (runtime commit `8b9043076c45e23b7191bf55372deaf678e5312c`). The new browser journey covers triage, diagnostic matching, search, a recipe axe scan and screenshots. Desktop Chromium, 320-pixel Chromium and iPhone/WebKit recipe screenshots were visually inspected without clipping.
+
+Terraform 1.4.7 and 1.14.0 each reproduced stale-state and distinct-workspace-lineage rejections. The tests check that rejected applies leave local state unchanged and that fresh planning converges. These results cover the disposable built-in-resource local-backend lab. Physical-device, actual screen-reader and cloud-backend coverage remain outside these results.
