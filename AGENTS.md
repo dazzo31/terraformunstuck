@@ -10,6 +10,6 @@ Read docs/PRODUCT_SPEC.md, docs/CONTENT_GUIDE.md and docs/EXECUTION_TRACKER.md b
 - Do not turn pattern matches into claims of confirmed cause or infrastructure safety.
 - No generic rollback claims or default force-unlock, state rewrite, destroy, -target or -auto-approve recovery.
 - Source technical recommendations from version-appropriate official documentation; record review dates and limitations.
-- Validate with npm run check. Browser QA is required before claiming visual/accessibility verification. Record unavailable checks honestly.
-- GitHub Pages serves dist/ using the manual workflow. Preserve its check-before-deploy gate. Do not add private Site identity or credentials to this portable repository.
+- Run npm ci --ignore-scripts before development checks. Validate with npm run check; run browser and local Terraform checks through the documented CI jobs. Browser QA is required before claiming visual/accessibility verification. Record unavailable checks honestly.
+- GitHub Pages serves dist/ after the Checks workflow passes for that exact commit on main. Preserve the unit/schema, browser and local Terraform gates. Do not add private Site identity or credentials to this portable repository.
 - Update execution status and evidence after a meaningful milestone. Do not label the project production-ready on test counts alone.

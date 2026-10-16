@@ -1,0 +1,282 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "lessons",
+    "recipes",
+    "workflows",
+    "exercises"
+  ],
+  "properties": {
+    "lessons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "summary",
+          "source",
+          "reviewed",
+          "explanation",
+          "definition",
+          "example",
+          "exampleNote",
+          "misconception",
+          "next",
+          "version",
+          "number"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "title": {
+            "$ref": "#/$defs/text"
+          },
+          "summary": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/text"
+          },
+          "reviewed": {
+            "type": "string",
+            "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+          },
+          "explanation": {
+            "$ref": "#/$defs/text"
+          },
+          "definition": {
+            "$ref": "#/$defs/text"
+          },
+          "example": {
+            "$ref": "#/$defs/text"
+          },
+          "exampleNote": {
+            "$ref": "#/$defs/text"
+          },
+          "misconception": {
+            "$ref": "#/$defs/text"
+          },
+          "next": {
+            "$ref": "#/$defs/text"
+          },
+          "version": {
+            "$ref": "#/$defs/text"
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "recipes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "summary",
+          "source",
+          "reviewed",
+          "symptom",
+          "meaning",
+          "verify",
+          "stop",
+          "version",
+          "phase",
+          "checks",
+          "resolution"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "title": {
+            "$ref": "#/$defs/text"
+          },
+          "summary": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/text"
+          },
+          "reviewed": {
+            "type": "string",
+            "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+          },
+          "symptom": {
+            "$ref": "#/$defs/text"
+          },
+          "meaning": {
+            "$ref": "#/$defs/text"
+          },
+          "verify": {
+            "$ref": "#/$defs/text"
+          },
+          "stop": {
+            "$ref": "#/$defs/text"
+          },
+          "version": {
+            "$ref": "#/$defs/text"
+          },
+          "phase": {
+            "enum": [
+              "setup",
+              "init",
+              "validate",
+              "plan",
+              "apply",
+              "ci"
+            ]
+          },
+          "checks": {
+            "$ref": "#/$defs/steps"
+          },
+          "resolution": {
+            "$ref": "#/$defs/steps"
+          }
+        },
+        "dependencies": {
+          "command": [
+            "effect"
+          ]
+        }
+      }
+    },
+    "workflows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "summary",
+          "source",
+          "reviewed",
+          "intro",
+          "verify",
+          "stop",
+          "steps"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "title": {
+            "$ref": "#/$defs/text"
+          },
+          "summary": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/text"
+          },
+          "reviewed": {
+            "type": "string",
+            "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+          },
+          "intro": {
+            "$ref": "#/$defs/text"
+          },
+          "verify": {
+            "$ref": "#/$defs/text"
+          },
+          "stop": {
+            "$ref": "#/$defs/text"
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "title",
+                "text"
+              ],
+              "properties": {
+                "title": {
+                  "$ref": "#/$defs/text"
+                },
+                "text": {
+                  "$ref": "#/$defs/text"
+                },
+                "code": {
+                  "$ref": "#/$defs/text"
+                },
+                "effect": {
+                  "$ref": "#/$defs/text"
+                }
+              },
+              "dependencies": {
+                "code": [
+                  "effect"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "exercises": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "task",
+          "question",
+          "options",
+          "correct",
+          "explanation"
+        ],
+        "properties": {
+          "task": {
+            "$ref": "#/$defs/text"
+          },
+          "question": {
+            "$ref": "#/$defs/text"
+          },
+          "options": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "correct": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "explanation": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    }
+  }
+}

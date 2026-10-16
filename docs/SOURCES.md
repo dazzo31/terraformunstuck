@@ -16,3 +16,18 @@ Reviewed 16 October 2026. Sources guide the educational content; they are not ev
 Additional official reference links are included in the content module; provider-specific recipes require their own review before publication. Each lesson/recipe/workflow names its primary official source. Future maintenance should replace broad version descriptions with an explicit validated compatibility matrix.
 
 GitUnstuck README and source structure informed the product plan. All application source, CSS and brand SVG in this implementation are newly written. No external fonts, image downloads or copied brand assets are used.
+
+## Version 0.2 context guidance
+
+Reviewed 16 October 2026. These are identity/context checks, not live cloud validation or a provider-version support matrix:
+
+- https://developer.hashicorp.com/terraform/language/backend/s3
+- https://developer.hashicorp.com/terraform/language/backend/azurerm
+- https://developer.hashicorp.com/terraform/language/backend/local
+- https://developer.hashicorp.com/terraform/cloud-docs/workspaces
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration
+- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_oidc
+- https://docs.cloud.google.com/docs/terraform/authentication
+- https://docs.cloud.google.com/docs/authentication/application-default-credentials
+
+Local practice checks use official Terraform releases 1.4.7 and 1.14.0. The workspace downloads were verified against their official SHA256SUMS manifests. This validates the built-in local examples only; it does not certify all versions or cloud providers.

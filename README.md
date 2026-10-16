@@ -2,61 +2,79 @@
 
 A visual Terraform learning guide and practical troubleshooting companion.
 
-**Understand the plan. Find the problem. Choose your next step.**
+**[Open the public site](https://dazzo31.github.io/terraformunstuck/)** · Understand the plan. Find the problem. Choose your next step.
 
-This early implementation includes eight lessons, 16 troubleshooting recipes, five workflows, a four-scenario plan simulator, search, guided/advanced explanations and a local error analyser with 12 matching rules.
+## Version 0.2.0
 
-## Run locally
+- Eight lessons with practical tasks, understanding checks and explanatory feedback.
+- Guided troubleshooting by failing phase, symptom and lock ownership, plus 16 full recipes.
+- Twelve local error patterns, ranked by specificity with related generic diagnostics labelled.
+- Independent AWS/Azure/Google provider, local/S3/Azure Storage/HCP backend, execution and shell context.
+- Five workflows, four simulated plan scenarios, search, stable topic links, themes and optional local progress.
 
-No build or package installation is needed. Use an HTTP server so browser ES modules load correctly:
+Passing an understanding check does not prove a hands-on task was performed. Previous self-marked lesson completion remains compatible.
+
+## Run the site
+
+No runtime dependencies or build step are needed. Use an HTTP server for browser ES modules:
 
 ```sh
 python3 -m http.server 8080 --directory dist
 ```
 
-Open http://localhost:8080. On Windows with Python launcher installed, use `py -m http.server 8080 --directory dist`.
+Open http://localhost:8080. On Windows with Python installed, `py -m http.server 8080 --directory dist` is an alternative.
 
-## Verify
+## Development checks
 
-Node.js 22 or later is required for development checks; CI uses Node 24. There are no npm dependencies to install.
+Node.js 22+ is required; CI uses Node 24. Pinned development dependencies provide JSON Schema validation, Playwright and axe accessibility checks. They are not deployed to visitors.
 
 ```sh
+npm ci --ignore-scripts
 npm run check
 ```
 
-The tests cover diagnostic fixtures, input handling, content integrity, simulation semantics and static application constraints. See docs/EXECUTION_TRACKER.md for browser and Terraform-execution verification status.
+For browser checks on a suitable development machine or CI runner:
 
-## Deploy to GitHub Pages
+```sh
+npx playwright install --with-deps chromium firefox
+npm run test:browser
+```
 
-Repository: https://github.com/dazzo31/terraformunstuck. The source is ready for GitHub Pages deployment.
+The suite serves the site beneath `/terraformunstuck/` to exercise GitHub Pages asset paths. It checks desktop Chromium, mobile Chromium emulation and desktop Firefox; core routes in both themes; keyboard navigation; diagnostics; learning checks; overflow; and a synthetic-marker privacy boundary. Automated axe results are not a full accessibility certification or a manual screen-reader audit.
 
-1. In repository Settings → Pages, choose GitHub Actions as the source.
-2. Run the **Deploy GitHub Pages** workflow manually. Checks must pass before deployment.
+With Terraform installed:
 
-The workflow is deliberately manual for this initial release. Branch protection, Pages availability and environment settings must be configured in the destination repository. An owner-private working version is also hosted at https://terraformunstuck.divinelemon32.chatgpt.site. GitHub contains the portable source; hosted Site identity and Git metadata are excluded.
+```sh
+npm run test:terraform
+```
 
-## Privacy and limitations
+This uses a disposable local directory and the built-in terraform_data resource. It verifies creation, output, convergence, a changed value, an invalid reference and a moved address. CI pins Terraform 1.4.7 and 1.14.0. No cloud credentials or external providers are used. The disposable automated apply is confined to this test and is not recovery advice for real infrastructure.
 
-The application does not connect to providers, execute Terraform or send pasted error input to any service. Only theme, mode and user-marked lesson progress are saved in browser storage. Input drafts remain in memory until Clear, reload or close. Hosting still serves assets and enforces access controls.
+## Deployment
 
-Matches are diagnostic pointers, not confirmed root causes. Simulated output is illustrative. The local practice example uses Terraform 1.4+ built-in terraform_data and has no cloud resource. No live cloud examples have been executed. This is version 0.1.0, not a completed 1.0 release or accessibility certification.
+GitHub Pages publishes `dist/` after the **Checks** workflow succeeds for that exact source commit on `main`. It includes unit/schema, browser and both local Terraform jobs. A manual deployment also requires a successful Checks run for the selected main commit. Pull-request checks cannot publish the site.
 
-## Project structure
+Pages must be enabled with **Settings → Pages → Source: GitHub Actions**. After deployment, a smoke check verifies the public page version and JavaScript assets. The older owner-private working site is a separate deployment; the public GitHub Pages site is canonical.
 
-- `dist/` — complete static website, deployed as-is
-- `dist/assets/js/content.js` — canonical lessons, recipes, workflows and sources
-- `dist/assets/js/analyser.js` — pure matching engine and synthetic samples
-- `dist/assets/js/model.js` — teaching scenarios
-- `dist/assets/js/app.js` — routing, rendering and interactions
-- `docs/` — product scope, contributor rules, source inventory and tracker
-- `tests/` — dependency-free Node regression checks
+## Privacy and limits
 
-## Contributing
+The application does not connect to cloud accounts, execute Terraform or transmit pasted diagnostics. Error drafts, selected context, troubleshooting answers and practice answers remain in tab memory. Only theme, mode and explicitly marked lesson completion IDs persist in browser storage. Clear removes the diagnostic draft, context and displayed matches. Hosting still receives ordinary asset requests; external documentation links navigate to those services when selected.
 
-Read CONTRIBUTING.md and AGENTS.md. Technical guidance needs official sources, version context, expected results and a stop condition. Never submit real credentials or state files as fixtures.
+Pattern matches are pointers, not confirmed causes. Simulation output is fictional teaching data. Provider/backend guidance identifies context checks rather than a certified cloud integration. See docs/VERIFICATION.md and the latest Actions results for evidence and limits.
+
+## Source layout
+
+- `dist/assets/js/content.js` — canonical lessons, recipes, workflows and core source links
+- `dist/assets/js/exercises.js`, `triage.js`, `context.js` — learning and diagnostic decisions
+- `dist/assets/js/analyser.js`, `model.js` — matching engine and simulation fixtures
+- `dist/assets/js/views/`, `ui.js` — page renderers and shared escaped markup
+- `dist/assets/js/app.js` — routing, in-memory session state and events
+- `data/content-schema.json` — checked content structure
+- `tests/`, `tests/browser/`, `scripts/` — unit, browser and local Terraform verification
+- `docs/` — scope, contributor guidance, sources and execution status
+
+Read CONTRIBUTING.md and AGENTS.md before editing. Use only synthetic diagnostics in fixtures and issues.
 
 ## Credits and licence
 
-Inspired by the visual learning and troubleshooting approach of [GitUnstuck](https://github.com/dazzo31/gitunstuck). This implementation uses new code and independent branding; no GitUnstuck source or brand asset was copied.
-
-MIT licence. Terraform is a HashiCorp product; this independent project is not affiliated with HashiCorp or IBM.
+Inspired by [GitUnstuck](https://github.com/dazzo31/gitunstuck). This implementation uses new code and independent branding. MIT licence. Terraform is a HashiCorp product; this project is not affiliated with HashiCorp or IBM.

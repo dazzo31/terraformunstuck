@@ -9,3 +9,7 @@ Do not call Terraform state a backup of actual data. Do not claim configuration 
 Source command semantics from official HashiCorp documentation and provider/backend specifics from their official docs. Record reviewed versions. The current lessons cover Terraform 1.x concepts; local terraform_data examples require 1.4+, moved blocks 1.1+, and configuration-driven import blocks 1.5+. Later syntax is not assumed available across all 1.x versions.
 
 Do not pad coverage with identical advice under unrelated titles. Each problem starts with its own evidence and branches. Uncertainty is useful and should be explicit.
+
+Content must also satisfy data/content-schema.json. Each lesson has a practice task, three-option understanding check and explanatory feedback in exercises.js. Keep the practical exercise separate from the understanding check: passing a check does not prove the user ran the lab. Existing self-marked progress remains compatible; new completions require a correct checked answer.
+
+Provider, backend, execution environment and shell are independent inputs. Context guidance needs an official source and a review date. Specific diagnostic patterns rank above generic messages; related messages remain visible rather than being silently discarded.

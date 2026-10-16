@@ -1,6 +1,6 @@
 export const MAX_INPUT = 50000;
 export function normalise(text) {
-  return String(text).replace(/\x1b\][^\x07]*(?:\x07|\x1b\\)/g,'').replace(/\x1b\[[0-?]*[ -/]*[@-~]/g,'').replace(/\r\n?/g,'\n');
+  return String(text).replace(/\x1b\][^\x07]*(?:\x07|\x1b\\)/g,'').replace(/\x1b\[[0-?]*[ -/]*[@-~]/g,'').replace(/\r\n?/g,'\n').replace(/^\s*[│] ?/gm,'');
 }
 export const rules = [
  {id:'not-found',pattern:/(?:terraform:\s*command not found|terraform[^\n]*(?:is not recognized|is not recognised)|the term ['"]?terraform['"]? is not recognized)/i},
@@ -20,7 +20,15 @@ export function analyse(raw) {
  if (String(raw).length>MAX_INPUT) return {status:'too-large',matches:[]};
  const text=normalise(raw).trim();
  if (!text) return {status:'empty',matches:[]};
- const matches=rules.flatMap(rule=>{const match=text.match(rule.pattern);return match?[{id:rule.id,evidence:match[0].trim()}]:[];});
+ const priorities={'provider-version':200,'provider-download':40};
+ const matches=rules.flatMap(rule=>{
+   const match=text.match(rule.pattern);
+   return match?[{id:rule.id,evidence:match[0].trim(),priority:priorities[rule.id]??100}]:[];
+ }).sort((a,b)=>b.priority-a.priority);
+ for(const match of matches){
+   match.relationship=match.id==='provider-download'&&matches.some(x=>x.id==='provider-version')&&/query available/.test(match.evidence)?'related':'independent';
+   match.reason=match.relationship==='related'?'This generic provider lookup message may be explained by the more specific version-constraint diagnostic.':'This rule matched the displayed diagnostic text; confirm it against the original operation.';
+ }
  return {status:matches.length?'matched':'unknown',matches};
 }
 export const samples = {
