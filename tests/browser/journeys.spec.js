@@ -78,6 +78,7 @@ test('module-move triage reaches the exact local practice files without guessing
  await expect(page.getByRole('heading',{level:1})).toHaveText('Moving a resource into a module proposes deletion');
  await page.getByRole('link',{name:'Practise this move locally'}).click();await expect(page).toHaveURL(/#workflow\/module-move$/);
  await expect(page.locator('main')).toContainText('modules/messages/main.tf');await expect(page.locator('main')).toContainText('to   = module.messages.terraform_data.message');await expect(page.locator('main')).toContainText('id matches');
+ const copyLabels=await page.locator('.command-head button').evaluateAll(buttons=>buttons.map(button=>{const range=document.createRange();range.selectNodeContents(button);return range.getClientRects().length;}));expect(copyLabels.every(lines=>lines===1),'Copy labels must stay on a single line').toBe(true);
  await page.screenshot({path:`test-results/module-move-${info.project.name}.png`,fullPage:true});
  for(const theme of ['light','dark']){
   if(theme==='dark')await page.locator('#theme-toggle').click();
