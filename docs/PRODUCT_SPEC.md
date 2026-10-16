@@ -1,4 +1,4 @@
-# Product specification — 0.4.0
+# Product specification — 0.4.1
 
 Terraform Unstuck helps people learn Terraform and select appropriate next checks when it fails. Learn and Fix a Problem are equally prominent entry points. A daily workflow is a complete sequence with prerequisites, effects, verification and a stop condition.
 

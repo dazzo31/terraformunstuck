@@ -1,6 +1,6 @@
 {
   "name": "terraformunstuck",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "type": "module",
   "description": "A visual Terraform learning guide and practical troubleshooting companion",
@@ -17,6 +17,6 @@
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.56.1",
-    "ajv": "8.17.1"
+    "ajv": "8.20.0"
   }
 }

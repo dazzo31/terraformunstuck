@@ -1,13 +1,15 @@
-# Verification — version 0.4.0
+# Verification history
 
-## Recorded local results (16 October 2026)
+See [AUDIT.md](AUDIT.md) for the October 2026 audit and current verification scope. Counts below belong to their named releases; they are not cumulative.
+
+## Version 0.2 recorded local results (16 October 2026)
 
 - 49 Node unit/schema/rendering tests passed, with JavaScript syntax checks across all runtime modules.
 - Official Terraform 1.4.7 and 1.14.0 downloads were checked against their SHA256SUMS manifests.
 - Both versions passed the disposable built-in-resource lab: create plan, local apply/output, empty follow-up plan, update plan, invalid variable reference, moved address and variable-example validation.
 - Browser test discovery found 30 project/test combinations. Execution is delegated to the GitHub-hosted runner because this workspace has no supported browser-control skill.
 
-## Browser gate
+## Version 0.2 browser gate
 
 The hosted candidate run passed all 30 browser project/test combinations after fixing Escape dismissal and mobile navigation clipping. Evidence: https://github.com/dazzo31/terraformunstuck/actions/runs/38935536704. Its required jobs cover:
 
