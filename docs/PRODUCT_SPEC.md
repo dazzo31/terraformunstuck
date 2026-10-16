@@ -1,4 +1,4 @@
-# Product specification — 0.4.1
+# Product specification — 0.5.0
 
 Terraform Unstuck helps people learn Terraform and select appropriate next checks when it fails. Learn and Fix a Problem are equally prominent entry points. A daily workflow is a complete sequence with prerequisites, effects, verification and a stop condition.
 
@@ -8,7 +8,7 @@ Guided mode keeps explanations focused; Advanced reveals deeper context without 
 
 This initial implementation uses a static dist directory and vanilla ES modules. The single canonical content module is an intentional small-project simplification of the original per-topic content-directory proposal. Content can be split by collection when that improves editing; stable IDs and validation must remain.
 
-Included: eight short lessons, 18 core recipes, six workflows, 13 error patterns, four simulator scenarios, search, themes, local lesson progress, copy and share controls, and unknown-input handling.
+Included: eight short lessons, 18 core recipes, seven workflows, 13 error patterns, four simulator scenarios, search, themes, local lesson progress, copy and share controls, and unknown-input handling.
 
 Later: deeper provider/backend guidance, optional plan JSON exploration, offline caching and separately validated OpenTofu support. No provider connectors, automatic apply or AI diagnosis in the current scope.
 
@@ -33,3 +33,7 @@ Apply and CI triage, search aliases and an explicit diagnostic rule resolve to t
 ## Version 0.4 root-to-child-module move
 
 A Plan triage branch links to the module-move recipe and a complete two-file local practice workflow. Search and the modules lesson resolve the same content. The guide requires exact address and identity checks; generic create/delete output does not establish this cause. Shared labs.js fixtures drive both displayed HCL and the executable local test. The lab inspects the unmapped delete/create plan, adds the mapping, applies only the mapped no-op resource plan, then verifies the preserved id/output and convergence. Cloud resources, cross-state moves and provider migrations remain out of scope.
+
+## Version 0.5 variable-file workflow
+
+A complete local CLI journey uses a required string and a defaulted list, an explicit practice.tfvars, configuration checks, an interactively approved local create, applied-output verification and a changed input inspected without applying. The variable lesson, practice task, input-error recipe and global search resolve to the same workflow. Shared labs.js files drive both the website and Terraform checks. Tests exercise defaults, missing required values, validation/type failures, environment/file/CLI ordering, convergence and unchanged applied state after planning. No cloud, secret handling certification or HCP input-precedence equivalence is claimed.

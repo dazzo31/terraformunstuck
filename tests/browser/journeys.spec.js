@@ -88,3 +88,27 @@ test('module-move triage reaches the exact local practice files without guessing
  await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('module refactor');await page.locator('.search-result[href="#recipe/module-move"]').click();await expect(page.getByRole('main')).toBeFocused();
  await page.goto('#fix');await page.locator('#error-input').fill('# terraform_data.message will be destroyed\n# module.messages.terraform_data.message will be created');await page.locator('#analyse').click();await expect(page.locator('#analysis-results')).toContainText('No confident match yet');
 });
+
+test('variable-file practice connects lesson, search and input-error recovery',async({page},info)=>{
+ await page.goto('#lesson/variables-values');
+ await page.getByRole('link',{name:'Open the practical guide'}).click();
+ await expect(page).toHaveURL(/#workflow\/variables$/);
+ await expect(page.getByRole('heading',{level:1})).toHaveText('Supply values with a variable file');
+ await expect(page.locator('main')).toContainText('practice.tfvars is not loaded automatically');
+ await expect(page.locator('main')).toContainText('Good morning, Terraform and team');
+ await expect(page.locator('main')).toContainText('until an approved apply');
+ const files=page.locator('.command code');
+ await expect(files.nth(0)).toContainText('validation {');await expect(files.nth(1)).toContainText('names    = ["Terraform", "team"]');
+ await expect(page.locator('main')).toContainText('terraform plan -input=false -var-file=practice.tfvars');
+ for(const theme of ['light','dark']){
+  if(theme==='dark')await page.locator('#theme-toggle').click();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations,theme).toEqual([]);
+ }
+ await page.screenshot({path:`test-results/variables-${info.project.name}.png`,fullPage:true});
+ await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('tfvars');
+ await page.locator('.search-result[href="#workflow/variables"]').click();await expect(page.locator('main')).toBeFocused();
+ await page.goto('#fix');await page.locator('#error-input').fill('Error: No value for required variable');await page.locator('#analyse').click();
+ await page.locator('#analysis-results a[href="#recipe/invalid-input"]').click();
+ await page.locator('a[href="#workflow/variables"]').click();await expect(page).toHaveURL(/#workflow\/variables$/);
+});
