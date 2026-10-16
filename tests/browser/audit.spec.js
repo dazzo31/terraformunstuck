@@ -34,3 +34,13 @@ test('blocked storage reset describes its persistence limit',async({page})=>{
  await page.goto('#about');await page.locator('#reset-preferences').click();
  await expect(page.locator('#toast')).toContainText('could not be cleared');
 });
+
+test('copy uses displayed command text and share excludes queries and diagnostic drafts',async({page})=>{
+ await page.addInitScript(()=>{window.copied=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.copied.push(text);}},configurable:true});});
+ await page.goto('?private-query-marker#fix');await page.locator('#error-input').fill('private-draft-marker');
+ await page.goto('#recipe/not-found');
+ const command=page.locator('.command').first();const text=await command.locator('code').textContent();
+ await command.locator('[data-copy]').click();expect(await page.evaluate(()=>window.copied.at(-1))).toBe(text);
+ await page.locator('[data-share]').click();const shared=await page.evaluate(()=>window.copied.at(-1));
+ expect(shared).toMatch(/#recipe\/not-found$/);expect(shared).not.toContain('private-');expect(new URL(shared).search).toBe('');
+});

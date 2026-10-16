@@ -56,3 +56,7 @@ Exact stale-state and different-lineage diagnostics are verified against executa
 - https://developer.hashicorp.com/terraform/language/resources/terraform-data — built-in local practice resource.
 
 The runnable fixture targets Terraform 1.4+ and is checked on 1.4.7 and 1.14.0. This does not validate cloud resources, provider changes or cross-state migration.
+
+## Audit corrections — 16 October 2026
+
+The installation recipe now links to https://developer.hashicorp.com/terraform/install and the version command to https://developer.hashicorp.com/terraform/cli/commands/version, replacing unrelated init links. Both official references were opened and reviewed during the audit. No new Terraform compatibility claim is introduced.

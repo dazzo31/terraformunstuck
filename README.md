@@ -4,7 +4,7 @@ A visual Terraform learning guide and practical troubleshooting companion.
 
 **[Open the public site](https://dazzo31.github.io/terraformunstuck/)** · Understand the plan. Find the problem. Choose your next step.
 
-## Version 0.4.0
+## Version 0.4.1
 
 - Eight lessons with practical tasks, understanding checks and explanatory feedback.
 - Guided troubleshooting by failing phase, symptom and lock ownership, plus 18 full recipes.
@@ -54,9 +54,9 @@ This uses a disposable local directory and the built-in terraform_data resource.
 
 ## Deployment
 
-GitHub Pages publishes `dist/` after the **Checks** workflow succeeds for that exact source commit on `main`. It includes unit/schema, browser and both local Terraform jobs. A manual deployment also requires a successful Checks run for the selected main commit. Pull-request checks cannot publish the site.
+GitHub Pages publishes `dist/` after the **Checks** workflow succeeds for that exact source commit on `main`. It includes unit/schema, browser and both local Terraform jobs. A manual deployment also requires a successful Checks run for the selected main commit. Superseded commits are rejected before deployment starts. Pull-request checks cannot publish the site.
 
-Pages must be enabled with **Settings → Pages → Source: GitHub Actions**. After deployment, a smoke check verifies the public page version and JavaScript assets. The older owner-private working site is a separate deployment; the public GitHub Pages site is canonical.
+Pages must be enabled with **Settings → Pages → Source: GitHub Actions**. After deployment, a byte-for-byte check verifies every file in dist and the public directory entry point. The older owner-private working site is a separate deployment; the public GitHub Pages site is canonical.
 
 ## Privacy and limits
 
