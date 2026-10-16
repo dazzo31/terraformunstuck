@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+*.log
+*.tar.gz
+*.zip
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+.env
+.env.*
+!.env.example

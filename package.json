@@ -1,0 +1,9 @@
+{
+  "name": "terraformunstuck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A visual Terraform learning guide and practical troubleshooting companion",
+  "scripts": { "test": "node --test tests/*.test.js", "check": "node --check dist/assets/js/app.js && node --test tests/*.test.js" },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,3 @@
+:root{--bg:#fafaf8;--surface:#fff;--text:#272735;--muted:#676777;--line:#e7e6ec;--purple:#6845dc;--purple-hover:#5735c3;--tint:#f3f0fc;--purple-line:#ded5f6;--green:#286b51;--green-tint:#edf6f0;--green-line:#c7dfd1;--amber:#906116;--amber-tint:#fff8e9;--amber-line:#e9d8ac;--code:#f7f7fa;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+[data-theme=dark]{color-scheme:dark;--bg:#17171e;--surface:#202029;--text:#eeeeF5;--muted:#b0acbf;--line:#343340;--purple:#b59aff;--purple-hover:#9c7aef;--tint:#29233d;--purple-line:#4b3c69;--green:#8cd2ad;--green-tint:#21392e;--green-line:#3b614c;--amber:#eac17c;--amber-tint:#393022;--amber-line:#655134;--code:#1b1b24}
+[data-theme=dark] .button.primary{color:#1c152e}
