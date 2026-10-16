@@ -1,4 +1,4 @@
-# Verification — version 0.4.0 candidate
+# Verification — version 0.4.0
 
 ## Recorded local results (16 October 2026)
 
@@ -45,4 +45,8 @@ Terraform 1.4.7 and 1.14.0 each reproduced stale-state and distinct-workspace-li
 
 ## Version 0.4 module-move extension
 
-52 local checks passed and 102 browser combinations were discovered. Hosted execution is pending. The added journey covers Plan triage, recipe-to-practice navigation, exact example content, lesson/search entry, both-theme axe scans and generic-plan uncertainty. The new local Terraform script uses the displayed HCL fixture, inspects delete/create without applying it, and checks that the mapped move preserves the instance id/output and produces an empty follow-up plan. Execution on 1.4.7 and 1.14.0 is pending. No cloud migration or manual device/screen-reader audit is claimed.
+All 52 local checks, 102 browser combinations and both Terraform jobs passed in https://github.com/dazzo31/terraformunstuck/actions/runs/38946896601 (runtime commit `55336666f052f41b266ac0049c72e2c4295c76b7`). The added journey covers Plan triage, recipe-to-practice navigation, exact example content, lesson/search entry, both-theme axe scans, generic-plan uncertainty and single-line Copy labels.
+
+Browser QA found and fixed a long-heading overflow in mobile WebKit, then a vertically wrapped Copy label found in screenshot review. Article text now wraps long paths while copy controls retain a single line. Final desktop and mobile screenshots were inspected; 320-pixel Chromium and emulated iPhone/WebKit show the complete workflow without clipping.
+
+Terraform 1.4.7 and 1.14.0 each passed the shared-fixture lab: the unmapped delete/create plan was inspected but never applied; the mapped move preserved the instance ID and output and produced a converged follow-up plan. The exercise uses built-in terraform_data and a disposable local backend. No cloud migration or manual device/screen-reader audit is claimed.

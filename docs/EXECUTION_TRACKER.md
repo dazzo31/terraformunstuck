@@ -1,6 +1,6 @@
 # Execution tracker
 
-Version 0.4.0 candidate — 16 October 2026.
+Version 0.4.0 — 16 October 2026.
 
 | Task | Status | Evidence / limits |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Version 0.4.0 candidate — 16 October 2026.
 | Publication gate | Implemented | All Checks jobs must pass for the exact main commit before Pages deployment; post-deploy public asset checks |
 | WebKit, narrow-screen and accessible interaction extension | Passed | All 90 combinations passed in run 38938525036 after fixing modal Tab wrapping; named landmarks, progress/status semantics, focus restoration, reduced motion and blocked storage; WebKit and narrow-screen screenshots inspected |
 | Saved-plan recovery (TF-017) | Verified candidate | 17 recipes / 13 rules; 51 local and 96 browser checks passed in run 38942934544; stale/wrong-lineage rejections reproduced on 1.4.7 and 1.14.0; desktop and mobile screenshots inspected |
-| Root-to-child-module move (TF-018) | Candidate; CI pending | 18 recipes / six workflows; shared HCL fixture; no speculative diagnostic rule; 102 browser combinations and local identity checks scheduled |
+| Root-to-child-module move (TF-018) | Verified candidate | 18 recipes / six workflows; 52 local and 102 browser checks passed in run 38946896601; preserved local ID/output on 1.4.7 and 1.14.0; mobile heading/copy fixes and final screenshots inspected |
 | Manual accessibility and physical devices | Outstanding | Automated accessibility-tree/interaction checks supplement, but do not replace, actual screen-reader and physical-device tests |
 | Broader provider/backend recipes | Future expansion | Context guidance is included; complete migration/recovery procedures require separate versioned validation |
 | Branch protection | Not verified | Workflow gates are implemented; repository administrative policy is not claimed |
