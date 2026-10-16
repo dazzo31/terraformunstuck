@@ -1,4 +1,4 @@
-import {sources} from './content.js?v=0.2.1';
+import {sources} from './content.js?v=0.3.0';
 export const escapeHTML = text => String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const e=escapeHTML;
 export const sourceLink=key=>`<a href="${sources[key]??sources.plan}" target="_blank" rel="noopener noreferrer">Official documentation ↗</a>`;

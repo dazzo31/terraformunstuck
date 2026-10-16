@@ -14,6 +14,7 @@ const fixtures=[
  ['already-exists','Error: A resource already exists with that name'],
  ['dependency-cycle','Error: Cycle: module.one, module.two'],
  ['unknown-instances','Error: Invalid for_each argument'],
+ ['saved-plan','Error: Saved plan is stale'],
  ['ci-exit-code','terraform plan -detailed-exitcode\nProcess exited with code 2']
 ];
 for(const [id,text] of fixtures)test(`diagnoses ${id} and ANSI/CRLF variant`,()=>{assert.ok(has(text,id));assert.ok(has('\x1b[31m'+text.replace(/\n/g,'\r\n')+'\x1b[0m',id));});
@@ -28,3 +29,8 @@ test('an incomplete error remains unrecognised',()=>assert.equal(analyse('Error:
 test('normalisation strips terminal controls and standardises line endings',()=>assert.equal(normalise('\x1b]0;title\x07\x1b[32mline\r\nnext\rthird\x1b[0m'),'line\nnext\nthird'));
 test('evidence is bounded to the matched diagnostic',()=>{const r=analyse('private preamble\n'+samples.lock+'\nprivate tail');assert.equal(r.matches[0].evidence,'Error: Error acquiring the state lock');});
 test('all advertised samples are recognised except deliberate unknown',()=>{for(const [key,value] of Object.entries(samples))assert.equal(analyse(value).status,key==='unknown'?'unknown':'matched');});
+
+test('saved-plan matching distinguishes explicit rejection from narrative and unrelated errors',()=>{
+ assert.ok(has('│ Error: Saved plan does not match the given state','saved-plan'));
+ for(const text of ['Saved plan is stale','No error: Saved plan is stale','Error: Saved plan is stale? No, it is current.','Error: Failed to read plan file','Error: Incompatible plan file'])assert.ok(!has(text,'saved-plan'),text);
+});

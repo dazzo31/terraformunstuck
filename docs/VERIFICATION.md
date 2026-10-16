@@ -1,4 +1,4 @@
-# Verification — version 0.2.1
+# Verification — version 0.3.0 candidate
 
 ## Recorded local results (16 October 2026)
 
@@ -36,3 +36,7 @@ The application now exposes diagnostic summaries separately from detailed eviden
 ## Manual release follow-up
 
 Before claiming screen-reader or device coverage, record the browser, operating system, assistive technology and version used. Check heading and landmark navigation, search entry and dismissal, diagnostic announcements without repeated evidence, exercise feedback, and progress after reload. On a physical phone, also check zoom, orientation changes and touch targets. Record observed failures separately from automated CI results.
+
+## Version 0.3 saved-plan extension
+
+51 local unit/schema/rendering checks passed. Browser discovery finds 96 combinations; hosted execution is pending. The new journey covers triage, both diagnostic variants, search, the recipe accessibility scan and screenshots. The Terraform script now creates stale-state and distinct-workspace-lineage failures, checks that rejected applies leave state unchanged, and generates a fresh converged plan. Execution on 1.4.7 and 1.14.0 is pending CI. Physical-device, screen-reader and cloud-backend coverage remain outside these results.

@@ -40,3 +40,10 @@ Accessibility behaviour reviewed against primary guidance on 16 October 2026:
 - https://playwright.dev/docs/aria-snapshots
 
 WebKit on a Linux runner and emulated iPhone settings are not the same as testing Safari on an actual Apple device.
+
+## Saved-plan recovery — reviewed 16 October 2026
+
+- https://developer.hashicorp.com/terraform/cli/commands/apply — saved-plan execution and its approval semantics.
+- https://developer.hashicorp.com/terraform/cli/commands/plan — saved artifact contents, sensitive values and regeneration.
+
+Exact stale-state and different-lineage diagnostics are verified against executable Terraform 1.4.7 and 1.14.0 in the local-backend CI lab. No provider or remote-backend compatibility is inferred.
