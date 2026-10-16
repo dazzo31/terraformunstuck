@@ -61,6 +61,7 @@ try{
  tf(['validate','-no-color']);reject(['-var-file=invalid.tfvars'],/Use a non-empty greeting/);
  await writeFile(join(cwd,'invalid.tfvars'),'greeting = "Hello"\nnames = { unexpected = "object" }\n');
  reject(['-var-file=invalid.tfvars'],/Invalid value for input variable/);
+ await rm(join(cwd,'invalid.tfvars'));
  await writeFile(join(cwd,'practice.tfvars'),variableFiles.changed);
  tf(['fmt','-check']);
  const changed=plan('changed',['-var-file=practice.tfvars']);
