@@ -31,3 +31,12 @@ Reviewed 16 October 2026. These are identity/context checks, not live cloud vali
 - https://docs.cloud.google.com/docs/authentication/application-default-credentials
 
 Local practice checks use official Terraform releases 1.4.7 and 1.14.0. The workspace downloads were verified against their official SHA256SUMS manifests. This validates the built-in local examples only; it does not certify all versions or cloud providers.
+
+Accessibility behaviour reviewed against primary guidance on 16 October 2026:
+
+- https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+- https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html
+- https://playwright.dev/docs/emulation
+- https://playwright.dev/docs/aria-snapshots
+
+WebKit on a Linux runner and emulated iPhone settings are not the same as testing Safari on an actual Apple device.

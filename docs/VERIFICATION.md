@@ -26,3 +26,9 @@ See the current Checks run for exact executed results. Browser emulation does no
 ## Publication gate
 
 Only a successful Checks workflow for the exact main commit can publish. Public page/asset smoke checks run after deployment. A failed candidate leaves the previous site deployed.
+
+## Version 0.2.1 extension
+
+The candidate adds desktop WebKit, iPhone SE emulation and a 320-pixel mobile viewport, for six browser projects and 90 test/project combinations. New checks cover named main landmarks and progress semantics, modal focus trapping and restoration, a concise diagnostic live status, keyboard-only exercise feedback, reduced motion and blocked browser storage. CI execution of this extension is pending.
+
+The application now exposes diagnostic summaries separately from detailed evidence, keeps notification status regions mounted, labels lesson progress, and reports session-only completion when storage is unavailable. These changes verify accessible structure and interaction; they are not a test with an actual screen reader or physical phone. Live cloud integration remains untested: no target cloud account or disposable-resource environment has been supplied.
