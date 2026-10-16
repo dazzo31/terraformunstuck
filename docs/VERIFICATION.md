@@ -1,4 +1,4 @@
-# Verification — version 0.3.0
+# Verification — version 0.4.0
 
 ## Recorded local results (16 October 2026)
 
@@ -42,3 +42,11 @@ Before claiming screen-reader or device coverage, record the browser, operating 
 All 51 unit/schema/rendering checks, 96 browser combinations and both Terraform jobs passed in https://github.com/dazzo31/terraformunstuck/actions/runs/38942934544 (runtime commit `8b9043076c45e23b7191bf55372deaf678e5312c`). The new browser journey covers triage, diagnostic matching, search, a recipe axe scan and screenshots. Desktop Chromium, 320-pixel Chromium and iPhone/WebKit recipe screenshots were visually inspected without clipping.
 
 Terraform 1.4.7 and 1.14.0 each reproduced stale-state and distinct-workspace-lineage rejections. The tests check that rejected applies leave local state unchanged and that fresh planning converges. These results cover the disposable built-in-resource local-backend lab. Physical-device, actual screen-reader and cloud-backend coverage remain outside these results.
+
+## Version 0.4 module-move extension
+
+All 52 local checks, 102 browser combinations and both Terraform jobs passed in https://github.com/dazzo31/terraformunstuck/actions/runs/38946896601 (runtime commit `55336666f052f41b266ac0049c72e2c4295c76b7`). The added journey covers Plan triage, recipe-to-practice navigation, exact example content, lesson/search entry, both-theme axe scans, generic-plan uncertainty and single-line Copy labels.
+
+Browser QA found and fixed a long-heading overflow in mobile WebKit, then a vertically wrapped Copy label found in screenshot review. Article text now wraps long paths while copy controls retain a single line. Final desktop and mobile screenshots were inspected; 320-pixel Chromium and emulated iPhone/WebKit show the complete workflow without clipping.
+
+Terraform 1.4.7 and 1.14.0 each passed the shared-fixture lab: the unmapped delete/create plan was inspected but never applied; the mapped move preserved the instance ID and output and produced a converged follow-up plan. The exercise uses built-in terraform_data and a disposable local backend. No cloud migration or manual device/screen-reader audit is claimed.

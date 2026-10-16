@@ -1,8 +1,8 @@
-import {exercises,checkAnswer} from '../exercises.js?v=0.3.0';
-import {exercisePanel} from './guidance.js?v=0.3.0';
-import {lessons,recipes,workflows,commands,sources} from '../content.js?v=0.3.0';
-import {e,sourceLink,command,breadcrumb,pageHead,lessonCard,problemCard,workflowCard,notFound} from '../ui.js?v=0.3.0';
-import {scenarios,getScenario} from '../model.js?v=0.3.0';
+import {exercises,checkAnswer} from '../exercises.js?v=0.4.0';
+import {exercisePanel} from './guidance.js?v=0.4.0';
+import {lessons,recipes,workflows,commands,sources} from '../content.js?v=0.4.0';
+import {e,sourceLink,command,breadcrumb,pageHead,lessonCard,problemCard,workflowCard,notFound} from '../ui.js?v=0.4.0';
+import {scenarios,getScenario} from '../model.js?v=0.4.0';
 export function learn({completed=[]}={}){return pageHead('LEARN / THE ESSENTIALS','Make Terraform make sense.','Eight short lessons to build a working mental model. Start at the beginning or jump to the idea you need.')+`<div class="callout"><strong>Your learning path</strong><div class="progress-track" role="progressbar" aria-label="Learning progress" aria-valuemin="0" aria-valuemax="${lessons.length}" aria-valuenow="${completed.length}" aria-valuetext="${completed.length} of ${lessons.length} lessons marked complete"><div class="progress-fill" style="width:${completed.length/lessons.length*100}%"></div></div><span class="small">${completed.length} of ${lessons.length} lessons marked complete · Progress is kept in this browser when storage is available.</span></div><div class="cards">${lessons.map(l=>lessonCard(l,completed)).join('')}</div>`;}
 
 export function lesson(id,{completed=[],answers={}}={}){

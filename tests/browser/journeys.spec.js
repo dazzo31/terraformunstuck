@@ -72,3 +72,19 @@ test('saved-plan recovery connects triage, diagnostics and search to the same gu
  await page.goto('#fix');await page.locator('#error-input').fill('Error: Saved plan does not match the given state');await page.locator('#analyse').click();await expect(page.locator('#analysis-results a[href="#recipe/saved-plan"]')).toBeVisible();
  await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('stale');await page.locator('.search-result[href="#recipe/saved-plan"]').click();await expect(page.getByRole('main')).toBeFocused();
 });
+test('module-move triage reaches the exact local practice files without guessing from plan text',async({page},info)=>{
+ await page.goto('#fix');await page.locator('#triage-phase').selectOption('plan');await page.locator('#triage-symptom').selectOption('module-move');
+ await expect(page.locator('#triage-result')).toContainText('Do not apply unintended deletion');await page.locator('#triage-result a').click();await expect(page).toHaveURL(/#recipe\/module-move$/);
+ await expect(page.getByRole('heading',{level:1})).toHaveText('Moving a resource into a module proposes deletion');
+ await page.getByRole('link',{name:'Practise this move locally'}).click();await expect(page).toHaveURL(/#workflow\/module-move$/);
+ await expect(page.locator('main')).toContainText('modules/messages/main.tf');await expect(page.locator('main')).toContainText('to   = module.messages.terraform_data.message');await expect(page.locator('main')).toContainText('id matches');
+ const copyLabels=await page.locator('.command-head button').evaluateAll(buttons=>buttons.map(button=>{const range=document.createRange();range.selectNodeContents(button);return range.getClientRects().length;}));expect(copyLabels.every(lines=>lines===1),'Copy labels must stay on a single line').toBe(true);
+ await page.screenshot({path:`test-results/module-move-${info.project.name}.png`,fullPage:true});
+ for(const theme of ['light','dark']){
+  if(theme==='dark')await page.locator('#theme-toggle').click();
+  for(const route of ['recipe/module-move','workflow/module-move']){await page.goto('#'+route);const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations,theme+' '+route).toEqual([]);}
+ }
+ await page.goto('#lesson/modules-addresses');await page.getByRole('link',{name:'Open the practical guide'}).click();await expect(page).toHaveURL(/#workflow\/module-move$/);
+ await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('module refactor');await page.locator('.search-result[href="#recipe/module-move"]').click();await expect(page.getByRole('main')).toBeFocused();
+ await page.goto('#fix');await page.locator('#error-input').fill('# terraform_data.message will be destroyed\n# module.messages.terraform_data.message will be created');await page.locator('#analyse').click();await expect(page.locator('#analysis-results')).toContainText('No confident match yet');
+});

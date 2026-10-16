@@ -23,3 +23,4 @@ test('runtime modules contain no network calls or raw-input storage',async()=>{
  const app=await readFile(new URL('app.js',dir),'utf8');assert.match(app,/url\.search=''/);
 });
 test('CSS does not fetch external fonts or services',async()=>{const dir=new URL('../dist/assets/css/',import.meta.url);for(const f of await readdir(dir)){const text=await readFile(new URL(f,dir),'utf8');assert.doesNotMatch(text,/(?:https?:)?\/\//);}});
+test('practice and prerequisite links resolve to canonical workflows',()=>{for(const r of recipes.filter(x=>x.workflow))assert.ok(workflows.some(w=>w.id===r.workflow),r.id);for(const w of workflows.filter(x=>x.prerequisite))assert.ok(workflows.some(p=>p.id===w.prerequisite&&p.id!==w.id),w.id);});
