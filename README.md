@@ -7,7 +7,7 @@ A visual Terraform learning guide and practical troubleshooting companion.
 ## Version 0.4.1
 
 - Eight lessons with practical tasks, understanding checks and explanatory feedback.
-- Guided troubleshooting by failing phase, symptom and lock ownership, plus 18 full recipes.
+- Guided troubleshooting by failing phase, symptom and lock ownership, plus 22 full recipes.
 - Thirteen local error patterns, ranked by specificity with related generic diagnostics labelled.
 - Module-move guide and a complete local child-module practice workflow, linked from lessons, triage and search.
 - Saved-plan recovery through Apply/CI triage, diagnostic matching and search; stale state and wrong-state lineage are distinct branches.
