@@ -1,4 +1,4 @@
-# Verification — version 0.3.0
+# Verification — version 0.4.0 candidate
 
 ## Recorded local results (16 October 2026)
 
@@ -42,3 +42,7 @@ Before claiming screen-reader or device coverage, record the browser, operating 
 All 51 unit/schema/rendering checks, 96 browser combinations and both Terraform jobs passed in https://github.com/dazzo31/terraformunstuck/actions/runs/38942934544 (runtime commit `8b9043076c45e23b7191bf55372deaf678e5312c`). The new browser journey covers triage, diagnostic matching, search, a recipe axe scan and screenshots. Desktop Chromium, 320-pixel Chromium and iPhone/WebKit recipe screenshots were visually inspected without clipping.
 
 Terraform 1.4.7 and 1.14.0 each reproduced stale-state and distinct-workspace-lineage rejections. The tests check that rejected applies leave local state unchanged and that fresh planning converges. These results cover the disposable built-in-resource local-backend lab. Physical-device, actual screen-reader and cloud-backend coverage remain outside these results.
+
+## Version 0.4 module-move extension
+
+52 local checks passed and 102 browser combinations were discovered. Hosted execution is pending. The added journey covers Plan triage, recipe-to-practice navigation, exact example content, lesson/search entry, both-theme axe scans and generic-plan uncertainty. The new local Terraform script uses the displayed HCL fixture, inspects delete/create without applying it, and checks that the mapped move preserves the instance id/output and produces an empty follow-up plan. Execution on 1.4.7 and 1.14.0 is pending. No cloud migration or manual device/screen-reader audit is claimed.

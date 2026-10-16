@@ -47,3 +47,12 @@ WebKit on a Linux runner and emulated iPhone settings are not the same as testin
 - https://developer.hashicorp.com/terraform/cli/commands/plan — saved artifact contents, sensitive values and regeneration.
 
 Exact stale-state and different-lineage diagnostics are verified against executable Terraform 1.4.7 and 1.14.0 in the local-backend CI lab. No provider or remote-backend compatibility is inferred.
+
+## Module-move practice — reviewed 16 October 2026
+
+- https://developer.hashicorp.com/terraform/language/modules/develop/refactoring — module scope and upgrade history.
+- https://developer.hashicorp.com/terraform/language/block/moved — address mapping.
+- https://developer.hashicorp.com/terraform/language/block/module — module calls and outputs.
+- https://developer.hashicorp.com/terraform/language/resources/terraform-data — built-in local practice resource.
+
+The runnable fixture targets Terraform 1.4+ and is checked on 1.4.7 and 1.14.0. This does not validate cloud resources, provider changes or cross-state migration.

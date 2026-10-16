@@ -1,7 +1,7 @@
-import {e,command} from '../ui.js?v=0.3.0';
-import {symptoms,nextCheck} from '../triage.js?v=0.3.0';
-import {exercises,checkAnswer} from '../exercises.js?v=0.3.0';
-import {providers,backends,contextGuidance} from '../context.js?v=0.3.0';
+import {e,command} from '../ui.js?v=0.4.0';
+import {symptoms,nextCheck} from '../triage.js?v=0.4.0';
+import {exercises,checkAnswer} from '../exercises.js?v=0.4.0';
+import {providers,backends,contextGuidance} from '../context.js?v=0.4.0';
 
 export function triagePanel(state={}) {
   return `<section class="triage-panel" aria-labelledby="triage-title"><div class="section-heading"><div><span class="eyebrow">NO ERROR TEXT? START HERE</span><h2 id="triage-title">Work through the problem</h2><p>A few questions to choose a useful first check. Unknown is a valid answer.</p></div></div><label for="triage-phase">Which command or phase failed?</label><select id="triage-phase">${[['unknown','I do not know yet'],['setup','Install or start Terraform'],['init','Initialise (init)'],['validate','Check configuration (validate)'],['plan','Preview changes (plan)'],['apply','Carry out changes (apply)'],['ci','A CI pipeline']].map(([id,label])=>`<option value="${id}" ${state.phase===id?'selected':''}>${label}</option>`).join('')}</select><div id="triage-questions">${triageQuestions(state)}</div><p class="small muted">Answers stay in tab memory. No infrastructure is inspected or changed.</p></section>`;
