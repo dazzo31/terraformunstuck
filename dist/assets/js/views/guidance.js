@@ -1,14 +1,14 @@
-import {e,command} from '../ui.js?v=0.2.0';
-import {symptoms,nextCheck} from '../triage.js?v=0.2.0';
-import {exercises,checkAnswer} from '../exercises.js?v=0.2.0';
-import {providers,backends,contextGuidance} from '../context.js?v=0.2.0';
+import {e,command} from '../ui.js?v=0.2.1';
+import {symptoms,nextCheck} from '../triage.js?v=0.2.1';
+import {exercises,checkAnswer} from '../exercises.js?v=0.2.1';
+import {providers,backends,contextGuidance} from '../context.js?v=0.2.1';
 
 export function triagePanel(state={}) {
   return `<section class="triage-panel" aria-labelledby="triage-title"><div class="section-heading"><div><span class="eyebrow">NO ERROR TEXT? START HERE</span><h2 id="triage-title">Work through the problem</h2><p>A few questions to choose a useful first check. Unknown is a valid answer.</p></div></div><label for="triage-phase">Which command or phase failed?</label><select id="triage-phase">${[['unknown','I do not know yet'],['setup','Install or start Terraform'],['init','Initialise (init)'],['validate','Check configuration (validate)'],['plan','Preview changes (plan)'],['apply','Carry out changes (apply)'],['ci','A CI pipeline']].map(([id,label])=>`<option value="${id}" ${state.phase===id?'selected':''}>${label}</option>`).join('')}</select><div id="triage-questions">${triageQuestions(state)}</div><p class="small muted">Answers stay in tab memory. No infrastructure is inspected or changed.</p></section>`;
 }
 export function triageQuestions(state={}) {
   const choices=symptoms[state.phase]??[];
-  return `${choices.length?`<label for="triage-symptom">Which symptom is closest?</label><select id="triage-symptom"><option value="unknown">None of these / I am not sure</option>${choices.map(([id,label])=>`<option value="${id}" ${state.symptom===id?'selected':''}>${e(label)}</option>`).join('')}</select>`:''}${state.symptom==='state-locked'?`<label for="triage-owner">Who owns the lock?</label><select id="triage-owner">${[['unknown','I do not know yet'],['active','A run is still active'],['abandoned','The run is confirmed abandoned']].map(([id,label])=>`<option value="${id}" ${state.owner===id?'selected':''}>${label}</option>`).join('')}</select>`:''}<div id="triage-result" aria-live="polite">${triageResult(state)}</div>`;
+  return `${choices.length?`<label for="triage-symptom">Which symptom is closest?</label><select id="triage-symptom"><option value="unknown">None of these / I am not sure</option>${choices.map(([id,label])=>`<option value="${id}" ${state.symptom===id?'selected':''}>${e(label)}</option>`).join('')}</select>`:''}${state.symptom==='state-locked'?`<label for="triage-owner">Who owns the lock?</label><select id="triage-owner">${[['unknown','I do not know yet'],['active','A run is still active'],['abandoned','The run is confirmed abandoned']].map(([id,label])=>`<option value="${id}" ${state.owner===id?'selected':''}>${label}</option>`).join('')}</select>`:''}<div id="triage-result" role="status" aria-label="Troubleshooting next check" aria-live="polite" aria-atomic="true">${triageResult(state)}</div>`;
 }
 export function triageResult(state) {
   const result=nextCheck(state);
@@ -30,7 +30,7 @@ export function renderContext(draft={}) {
 export function exercisePanel(id,answer={}) {
   const x=exercises[id];if(!x)return '';
   const result=answer.checked?checkAnswer(id,answer.value):null;
-  return `<section class="exercise-panel" aria-labelledby="exercise-heading"><span class="eyebrow">PRACTISE THE IDEA</span><h2 id="exercise-heading">Put this lesson to work</h2><p>${e(x.task)}</p>${x.route?`<a class="text-link" href="#${x.route}">Open the practical guide →</a>`:''}<fieldset><legend>${e(x.question)}</legend>${x.options.map((option,i)=>`<label class="answer-option"><input type="radio" name="exercise-${id}" data-exercise="${id}" value="${i}" ${answer.value===i?'checked':''}> <span>${e(option)}</span></label>`).join('')}</fieldset><button data-check-exercise="${id}">Check my understanding</button><div id="exercise-feedback" role="status">${result?exerciseFeedback(result):''}</div><p class="small muted">This checks one idea, not completion of the hands-on task. Run commands only in your own dedicated practice directory.</p></section>`;
+  return `<section class="exercise-panel" aria-labelledby="exercise-heading"><span class="eyebrow">PRACTISE THE IDEA</span><h2 id="exercise-heading">Put this lesson to work</h2><p>${e(x.task)}</p>${x.route?`<a class="text-link" href="#${x.route}">Open the practical guide →</a>`:''}<fieldset><legend>${e(x.question)}</legend>${x.options.map((option,i)=>`<label class="answer-option"><input type="radio" name="exercise-${id}" data-exercise="${id}" value="${i}" ${answer.value===i?'checked':''}> <span>${e(option)}</span></label>`).join('')}</fieldset><button data-check-exercise="${id}">Check my understanding</button><div id="exercise-feedback" role="status" aria-label="Understanding feedback" aria-live="polite" aria-atomic="true">${result?exerciseFeedback(result):''}</div><p class="small muted">This checks one idea, not completion of the hands-on task. Run commands only in your own dedicated practice directory.</p></section>`;
 }
 export function exerciseFeedback(result) {
   return `<div class="callout ${result.correct?'success':''}"><strong>${result.correct?'That’s right.':'Have another look.'}</strong><p>${e(result.explanation)}</p></div>`;

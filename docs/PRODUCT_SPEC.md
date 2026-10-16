@@ -21,3 +21,7 @@ Fix → failing phase → closest symptom → relevant ownership question → ne
 Rendering is split into ui.js and views for learning, troubleshooting, workflows, shared guidance and general pages. Content has a checked JSON Schema. No new runtime dependencies are introduced. Development-only dependencies provide schema, browser and accessibility tests.
 
 Publication requires successful unit/schema, browser and local Terraform jobs for the exact main commit. GitHub Pages remains the canonical public deployment.
+
+## Version 0.2.1 accessible interaction
+
+Each route gives its main landmark the page heading as an accessible name. Learning progress exposes current/max values and a human-readable value. Diagnostic updates announce a short summary separately from the evidence region. Search traps focus using the native modal dialog and explicitly restores the opener on dismissal; choosing a topic focuses the destination main landmark. Notification regions remain mounted and clear after display. When browser storage is blocked, progress remains available for the visit and the completion message explains that it was not saved.

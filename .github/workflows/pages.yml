@@ -50,6 +50,8 @@ jobs:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           node --input-type=module <<'JS'
+          const { readFile } = await import('node:fs/promises');
+          const expectedVersion = JSON.parse(await readFile('package.json', 'utf8')).version;
           const root = new URL(process.env.PAGE_URL);
           if (!root.pathname.endsWith('/')) root.pathname += '/';
           for (const path of ['', 'assets/js/app.js', 'assets/js/views/guidance.js']) {
@@ -57,7 +59,7 @@ jobs:
             for (let attempt = 0; attempt < 8; attempt++) {
               const response = await fetch(new URL(path, root), { cache: 'no-store' });
               const body = await response.text();
-              if (response.ok && (path || body.includes('0.2.0'))) { success = true; break; }
+              if (response.ok && (path || body.includes(expectedVersion))) { success = true; break; }
               await new Promise(resolve => setTimeout(resolve, 5000));
             }
             if (!success) throw new Error('Published asset is unavailable or stale: ' + path);

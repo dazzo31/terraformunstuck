@@ -4,7 +4,7 @@ A visual Terraform learning guide and practical troubleshooting companion.
 
 **[Open the public site](https://dazzo31.github.io/terraformunstuck/)** · Understand the plan. Find the problem. Choose your next step.
 
-## Version 0.2.0
+## Version 0.2.1
 
 - Eight lessons with practical tasks, understanding checks and explanatory feedback.
 - Guided troubleshooting by failing phase, symptom and lock ownership, plus 16 full recipes.
@@ -36,11 +36,11 @@ npm run check
 For browser checks on a suitable development machine or CI runner:
 
 ```sh
-npx playwright install --with-deps chromium firefox
+npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
 ```
 
-The suite serves the site beneath `/terraformunstuck/` to exercise GitHub Pages asset paths. It checks desktop Chromium, mobile Chromium emulation and desktop Firefox; core routes in both themes; keyboard navigation; diagnostics; learning checks; overflow; and a synthetic-marker privacy boundary. Automated axe results are not a full accessibility certification or a manual screen-reader audit.
+The suite serves the site beneath `/terraformunstuck/` to exercise GitHub Pages asset paths. It checks desktop Chromium, Firefox and WebKit, Pixel/iPhone emulation and a 320-pixel mobile viewport; core routes in both themes; keyboard navigation; diagnostics; learning checks; overflow; concise live status messages, modal focus restoration, blocked-storage behaviour, reduced motion, and a synthetic-marker privacy boundary. Automated axe results are not a full accessibility certification or a manual screen-reader audit.
 
 With Terraform installed:
 

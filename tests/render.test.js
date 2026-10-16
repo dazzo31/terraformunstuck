@@ -13,7 +13,7 @@ globalThis.window={scrollTo(){},addEventListener(type,fn){listeners['window-'+ty
 const {escapeHTML}=await import('../dist/assets/js/app.js');
 function render(route){location.hash='#'+route;listeners['window-hashchange']();return node('#main').innerHTML;}
 const routes=['home','learn','fix','workflows','reference','about',...lessons.map(x=>'lesson/'+x.id),...recipes.map(x=>'recipe/'+x.id),...workflows.map(x=>'workflow/'+x.id)];
-test('all implemented routes render a single meaningful page heading',()=>{for(const route of routes){const html=render(route);assert.equal((html.match(/<h1>/g)||[]).length,1,route);assert.doesNotMatch(html,/>undefined<|Topic not found/,route);assert.ok(html.length>1000,route);}});
+test('all implemented routes render a single meaningful page heading',()=>{for(const route of routes){const html=render(route);assert.equal((html.match(/<h1(?:\s[^>]*)?>/g)||[]).length,1,route);assert.doesNotMatch(html,/>undefined<|Topic not found/,route);assert.ok(html.length>1000,route);}});
 test('all rendered internal topic links resolve to known routes',()=>{for(const route of routes){for(const [,target] of render(route).matchAll(/href="#([^"]+)"/g))assert.ok(routes.includes(target),`${route} -> ${target}`);}});
 test('unknown and malformed routes render a useful fallback',()=>{for(const route of ['lesson/missing','recipe/missing','workflow/missing','learn/not-a-page','%ZZ'])assert.match(render(route),/Let’s get you back on track/);});
 test('unsafe text is escaped at the rendering boundary',()=>{assert.equal(escapeHTML('<img src=x onerror="alert(1)">&\''),'&lt;img src=x onerror=&quot;alert(1)&quot;&gt;&amp;&#39;');});

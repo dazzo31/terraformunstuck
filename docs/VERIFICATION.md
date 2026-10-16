@@ -1,4 +1,4 @@
-# Verification — version 0.2.0
+# Verification — version 0.2.1
 
 ## Recorded local results (16 October 2026)
 
@@ -26,3 +26,13 @@ See the current Checks run for exact executed results. Browser emulation does no
 ## Publication gate
 
 Only a successful Checks workflow for the exact main commit can publish. Public page/asset smoke checks run after deployment. A failed candidate leaves the previous site deployed.
+
+## Version 0.2.1 extension
+
+The candidate adds desktop WebKit, iPhone SE emulation and a 320-pixel mobile viewport, for six browser projects and 90 test/project combinations. New checks cover named main landmarks and progress semantics, modal focus trapping and restoration, a concise diagnostic live status, keyboard-only exercise feedback, reduced motion and blocked browser storage. All 90 combinations passed after an explicit modal Tab-wrap fix. Evidence: https://github.com/dazzo31/terraformunstuck/actions/runs/38938525036 (runtime commit `28e7891073fc04211870fc94999da031308017d9`). The same run passed all 49 local checks and the Terraform 1.4.7 / 1.14.0 examples. WebKit lesson and triage screenshots and 320-pixel light/dark home screenshots were visually inspected.
+
+The application now exposes diagnostic summaries separately from detailed evidence, keeps notification status regions mounted, labels lesson progress, and reports session-only completion when storage is unavailable. These changes verify accessible structure and interaction; they are not a test with an actual screen reader or physical phone. Live cloud integration remains untested: no target cloud account or disposable-resource environment has been supplied.
+
+## Manual release follow-up
+
+Before claiming screen-reader or device coverage, record the browser, operating system, assistive technology and version used. Check heading and landmark navigation, search entry and dismissal, diagnostic announcements without repeated evidence, exercise feedback, and progress after reload. On a physical phone, also check zoom, orientation changes and touch targets. Record observed failures separately from automated CI results.
