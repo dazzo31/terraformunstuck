@@ -13,7 +13,7 @@ Version 0.4.1 audit candidate — 16 October 2026. Current detailed findings: [A
 | Audit local checks | Passed | 55 unit/schema/render/publication tests and runtime syntax checks; npm audit reports zero known vulnerabilities |
 | Terraform examples | Passed on candidate | Real disposable local execution on 1.4.7 and 1.14.0; includes stale/wrong-lineage plans and child-module move; no cloud resources |
 | Browser / accessibility / privacy gate | Passed on candidate | All 138 combinations passed in Checks 38956451023; original 102 plus 36 audit combinations |
-| Publication gate | Strengthened in candidate | Exact-main Checks required; reject superseded source; compare every published dist file byte-for-byte |
+| Publication gate | Strengthened in candidate | Exact-main Checks required; stale workflow-run events skip cleanly; compare every published dist file byte-for-byte |
 | Audit defects | Verified on candidate | Skip link, malformed routes, duplicate progress, same-topic focus, reset feedback, source links and dev-only Ajv advisory; see AUDIT.md |
 | Manual accessibility and physical devices | Outstanding | Automated checks supplement actual screen-reader and device tests |
 | Broader provider/backend recipes | Implemented | TF-019 through TF-022 recipes added (backend migration, lost state, removed provider, API timeouts) |
