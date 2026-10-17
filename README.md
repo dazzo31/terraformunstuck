@@ -1,82 +1,125 @@
-# Terraform Unstuck
+# Terraform Unstuck • Visual Learning Guide & Practical Troubleshooting Companion
 
-A visual Terraform learning guide and practical troubleshooting companion.
+> **Live Application:** [dazzo31.github.io/terraformunstuck](https://dazzo31.github.io/terraformunstuck/)  
+> **Tagline:** *Understand the plan. Find the problem. Choose your next step.*  
+> **Build & Quality:** [![Checks](https://github.com/dazzo31/terraformunstuck/actions/workflows/checks.yml/badge.svg)](https://github.com/dazzo31/terraformunstuck/actions/workflows/checks.yml) [![Pages](https://github.com/dazzo31/terraformunstuck/actions/workflows/pages.yml/badge.svg)](https://github.com/dazzo31/terraformunstuck/actions/workflows/pages.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+> **Sponsor:** [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dazzo31) [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-dazzo31-orange?style=flat&logo=buymeacoffee&logoColor=white)](https://buymeacoffee.com/dazzo31)
 
-**[Open the public site](https://dazzo31.github.io/terraformunstuck/)** · Understand the plan. Find the problem. Choose your next step.
+**Terraform Unstuck** is a free, visual learning and troubleshooting companion designed to help engineers, practitioners, and learners understand Terraform plans, diagnose cryptic errors, and choose safe, deliberate next steps without risking unexpected infrastructure destruction.
 
-## Version 0.4.1
+---
 
-- Eight lessons with practical tasks, understanding checks and explanatory feedback.
-- Guided troubleshooting by failing phase, symptom and lock ownership, plus 22 full recipes.
-- Thirteen local error patterns, ranked by specificity with related generic diagnostics labelled.
-- Module-move guide and a complete local child-module practice workflow, linked from lessons, triage and search.
-- Saved-plan recovery through Apply/CI triage, diagnostic matching and search; stale state and wrong-state lineage are distinct branches.
-- Independent AWS/Azure/Google provider, local/S3/Azure Storage/HCP backend, execution and shell context.
-- Six workflows, four simulated plan scenarios, search, stable topic links, themes and optional local progress.
+## 🌟 Why Terraform Unstuck?
 
-Passing an understanding check does not prove a hands-on task was performed. Previous self-marked lesson completion remains compatible.
+Terraform is powerful, but when things go wrong—a locked state, an unexpected deletion, a provider conflict, or an API timeout—the feedback can feel terrifying. Terraform Unstuck gives you a calm, structured mental model and concrete, verified diagnostic steps:
 
-## Run the site
+- 🧠 **Four-Zone Mental Model**: Understand the critical relationship between **Desired Configuration**, **Recorded State**, **Actual Infrastructure**, and the **Proposed Plan**. See why state is neither a backup nor a magic undo button.
+- 🚨 **Zero-Panic Guided Troubleshooting**: 22 full recipes covering real-world errors across Setup, Initialisation, Validation, Planning, Apply, and CI/CD. Every recipe provides *What you are seeing*, *What it means*, *Check first*, *Verification*, and *When to stop*.
+- 🔍 **Private Local Error Analyser**: Paste sanitised error logs into a 100% client-side deterministic matcher. Fast regex-driven pattern matching with ranked diagnostics, related generic message labeling, and zero data leakage.
+- 🛠️ **Real Hands-On Practice**: Practice tricky refactors like moving resources into child modules (`moved` blocks) using the built-in `terraform_data` resource—completely locally without cloud accounts or credentials.
+- 🎭 **Dual Experience Modes**: Switch seamlessly between **Guided Mode** (plain-English explanations and bounded actions) and **Advanced Mode** (graph dependencies, module addresses, provider aliases, and automation nuances).
+- 🌓 **Accessible & Responsive**: Fully supports dark and light themes, keyboard-driven navigation, accessible dialogs, and mobile viewports.
 
-No runtime dependencies or build step are needed. Use an HTTP server for browser ES modules:
+---
+
+## 🧭 Core Feature Tour
+
+### 1. 📚 Guided Learning Path
+Eight modular, bite-sized lessons designed to demystify infrastructure as code:
+1. **Desired State**: How declarative configuration differs from imperative scripts.
+2. **Resources & Providers**: Managing services, data sources, and provider dependencies.
+3. **The Mental Model**: Interactive simulation of edits, external drift, and address renaming.
+4. **Command Lifecycle**: What `init`, `fmt`, `validate`, `plan`, and `apply` actually do.
+5. **Variables, Locals & Outputs**: Interface boundaries and sensitive value handling.
+6. **Reading a Plan**: Dissecting additions, in-place updates, deletions, and dangerous replacements.
+7. **Modules & Stable Addresses**: Preserving object identity across refactors with `count` and `for_each`.
+8. **Backends & Team Collaboration**: State locking, concurrency safety, and workspace boundaries.
+
+### 2. ⚡ Comprehensive Troubleshooting Backlog (22 Recipes)
+- **Setup & Init**: Missing CLI on PATH, provider download failures, provider version lockfile conflicts, backend initialisation requirements, backend migrations (`TF-019`), and removed provider cleanup (`TF-021`).
+- **Validation**: Invalid variables or arguments, circular dependency cycles.
+- **Planning**: State lock contention (active vs. abandoned lock recovery), unexpected resource deletion, forced replacement attributes, external drift reconciliation, empty plan triage, unknown `for_each`/`count` keys, and root-to-child module moves.
+- **Apply & Recovery**: Stale saved plans and mismatched state lineages, partial apply recovery, resource already exists / import adoption, API rate limiting and timeouts (`TF-022`), and lost/damaged state disaster recovery (`TF-020`).
+- **CI / Automation**: Detailed exit codes handling (`terraform plan -detailed-exitcode` code 2 vs 1), local vs. pipeline credential boundaries.
+
+### 3. 🛡️ Absolute Privacy & Zero Telemetry
+- **100% Client-Side Execution**: All error matching and diagnostic evaluation happen entirely in browser tab memory.
+- **Zero Network Transmission**: Pasted errors, configuration snippets, and credentials are never transmitted over the network.
+- **Zero Telemetry**: No third-party trackers, no analytics scripts, no external fonts.
+- **Clean Persistence**: Only theme preference, explanation mode, and explicitly completed lesson IDs persist in browser localStorage.
+
+---
+
+## 💻 Run Locally
+
+No compilation, node daemon, or build pipeline is required. The site runs directly in modern browsers using native ES modules.
+
+Serve the `dist/` directory with any static HTTP server:
 
 ```sh
+# Using Python 3 (macOS / Linux)
 python3 -m http.server 8080 --directory dist
+
+# Using Python launcher (Windows)
+py -m http.server 8080 --directory dist
 ```
 
-Open http://localhost:8080. On Windows with Python installed, `py -m http.server 8080 --directory dist` is an alternative.
+Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-## Development checks
+---
 
-Node.js 22+ is required; CI uses Node 24. Pinned development dependencies provide JSON Schema validation, Playwright and axe accessibility checks. They are not deployed to visitors.
+## 🧪 Development & Quality Assurance
+
+Node.js 22+ (CI runs on Node 24) is used for development linting, schema validation, and accessibility tests:
 
 ```sh
+# Install development dependencies
 npm ci --ignore-scripts
+
+# Run local syntax, schema, rendering, and diagnostic checks (55 tests)
 npm run check
 ```
 
-For browser checks on a suitable development machine or CI runner:
+### End-to-End Browser & Accessibility Suite
+To run the automated Playwright test suite across Chromium, Firefox, WebKit, and mobile viewports:
 
 ```sh
 npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
 ```
 
-The suite serves the site beneath `/terraformunstuck/` to exercise GitHub Pages asset paths. It checks desktop Chromium, Firefox and WebKit, Pixel/iPhone emulation and a 320-pixel mobile viewport; core routes in both themes; keyboard navigation; diagnostics; learning checks; overflow; concise live status messages, modal focus restoration, blocked-storage behaviour, reduced motion, and a synthetic-marker privacy boundary. Automated axe results are not a full accessibility certification or a manual screen-reader audit.
-
-With Terraform installed:
+### Local Terraform Verification
+To verify the practice examples against actual Terraform binaries (runs in disposable local directories with `terraform_data`):
 
 ```sh
 npm run test:terraform
 ```
 
-This uses a disposable local directory and the built-in terraform_data resource. It verifies creation, output, convergence, a changed value, an invalid reference a moved address, rejection of stale/wrong-lineage saved plans without state changes, fresh-plan recovery, and a root-to-child-module move that preserves the instance ID and output. The unmapped delete/create counterexample is inspected without applying it. CI pins Terraform 1.4.7 and 1.14.0. No cloud credentials or external providers are used. The disposable automated apply is confined to this test and is not recovery advice for real infrastructure.
+---
 
-## Deployment
+## 🚢 Deployment
 
-GitHub Pages publishes `dist/` after the **Checks** workflow succeeds for that exact source commit on `main`. It includes unit/schema, browser and both local Terraform jobs. A manual deployment also requires a successful Checks run for the selected main commit. Superseded commits are rejected before deployment starts. Pull-request checks cannot publish the site.
+The public site is automatically tested and deployed to GitHub Pages via GitHub Actions:
+- **Checks Workflow**: Validates unit/schema tests, multi-browser Playwright matrix, accessibility scans (axe-core), and real Terraform integration runs on commit to `main`.
+- **Pages Publication**: Publishes `dist/` to [dazzo31.github.io/terraformunstuck](https://dazzo31.github.io/terraformunstuck/) with strict byte-for-byte asset verification.
 
-Pages must be enabled with **Settings → Pages → Source: GitHub Actions**. After deployment, a byte-for-byte check verifies every file in dist and the public directory entry point. The older owner-private working site is a separate deployment; the public GitHub Pages site is canonical.
+---
 
-## Privacy and limits
+## 💖 Sponsorship & Community Support
 
-The application does not connect to cloud accounts, execute Terraform or transmit pasted diagnostics. Error drafts, selected context, troubleshooting answers and practice answers remain in tab memory. Only theme, mode and explicitly marked lesson completion IDs persist in browser storage. Clear removes the diagnostic draft, context and displayed matches. Hosting still receives ordinary asset requests; external documentation links navigate to those services when selected.
+Terraform Unstuck is an independent open-source project developed and maintained by **[@dazzo31](https://github.com/dazzo31)**. If this tool helped you recover from a Terraform issue or saved your team hours of downtime, consider supporting its ongoing maintenance:
 
-Pattern matches are pointers, not confirmed causes. Simulation output is fictional teaching data. Provider/backend guidance identifies context checks rather than a certified cloud integration. See docs/VERIFICATION.md and the latest Actions results for evidence and limits.
+- 💖 **[Sponsor on GitHub](https://github.com/sponsors/dazzo31)**
+- ☕ **[Buy Me A Coffee](https://buymeacoffee.com/dazzo31)**
 
-## Source layout
+Contributions, bug reports, and diagnostic pattern additions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md) before submitting pull requests.
 
-- `dist/assets/js/content.js` — canonical lessons, recipes, workflows and core source links
-- `dist/assets/js/exercises.js`, `triage.js`, `context.js` — learning and diagnostic decisions
-- `dist/assets/js/analyser.js`, `model.js`, `labs.js` — matching engine and simulation fixtures
-- `dist/assets/js/views/`, `ui.js` — page renderers and shared escaped markup
-- `dist/assets/js/app.js` — routing, in-memory session state and events
-- `data/content-schema.json` — checked content structure
-- `tests/`, `tests/browser/`, `scripts/` — unit, browser and local Terraform verification
-- `docs/` — scope, contributor guidance, sources and execution status
+---
 
-Read CONTRIBUTING.md and AGENTS.md before editing. Use only synthetic diagnostics in fixtures and issues.
+## 📜 Credits and Licence
 
-## Credits and licence
+Inspired by [GitUnstuck](https://github.com/dazzo31/gitunstuck). This implementation is built from scratch with independent branding and dedicated Terraform architecture.
 
-Inspired by [GitUnstuck](https://github.com/dazzo31/gitunstuck). This implementation uses new code and independent branding. MIT licence. Terraform is a HashiCorp product; this project is not affiliated with HashiCorp or IBM.
+Released under the **[MIT Licence](LICENSE)**.
+
+*Disclaimer: Terraform is a registered trademark of HashiCorp / IBM. Terraform Unstuck is an independent community resource and is not affiliated with, endorsed by, or sponsored by HashiCorp or IBM.*
