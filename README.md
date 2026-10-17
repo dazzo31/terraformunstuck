@@ -1,5 +1,12 @@
 # Terraform Unstuck • Visual Learning Guide & Practical Troubleshooting Companion
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="terraformunstuck-wordmark-dark.svg">
+    <img src="terraformunstuck-wordmark-light.svg" alt="Terraform Unstuck" width="620">
+  </picture>
+</p>
+
 > **Live Application:** [dazzo31.github.io/terraformunstuck](https://dazzo31.github.io/terraformunstuck/)  
 > **Tagline:** *Understand the plan. Find the problem. Choose your next step.*  
 > **Build & Quality:** [![Checks](https://github.com/dazzo31/terraformunstuck/actions/workflows/checks.yml/badge.svg)](https://github.com/dazzo31/terraformunstuck/actions/workflows/checks.yml) [![Pages](https://github.com/dazzo31/terraformunstuck/actions/workflows/pages.yml/badge.svg)](https://github.com/dazzo31/terraformunstuck/actions/workflows/pages.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
