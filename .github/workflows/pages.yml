@@ -24,12 +24,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Require successful checks for this exact source
+        id: deployment_guard
         uses: actions/github-script@v7
         with:
           script: |
             const sha = process.env.DEPLOY_SHA;
             const { data: main } = await github.rest.repos.getBranch({ ...context.repo, branch: 'main' });
-            if (main.commit.sha !== sha) throw new Error('Refusing a superseded deployment: source is no longer main.');
+            if (main.commit.sha !== sha) {
+              core.notice('Skipping deployment because source is no longer main.');
+              core.setOutput('deploy', 'false');
+              return;
+            }
             const { data } = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner, repo: context.repo.repo,
               workflow_id: 'checks.yml', head_sha: sha, event: 'push', status: 'success'
@@ -37,20 +42,27 @@ jobs:
             if (!data.workflow_runs.some(run => run.head_sha === sha && run.head_branch === 'main')) {
               throw new Error('A successful Checks run on main is required for the exact deployment SHA.');
             }
+            core.setOutput('deploy', 'true');
       - uses: actions/checkout@v4
+        if: steps.deployment_guard.outputs.deploy == 'true'
         with:
           ref: ${{ env.DEPLOY_SHA }}
       - uses: actions/configure-pages@v5
+        if: steps.deployment_guard.outputs.deploy == 'true'
       - uses: actions/upload-pages-artifact@v3
+        if: steps.deployment_guard.outputs.deploy == 'true'
         with:
           path: dist
       - name: Deploy
         id: deployment
+        if: steps.deployment_guard.outputs.deploy == 'true'
         uses: actions/deploy-pages@v4
       - uses: actions/setup-node@v4
+        if: steps.deployment_guard.outputs.deploy == 'true'
         with:
           node-version: '24'
       - name: Verify every published asset matches this deployment
+        if: steps.deployment_guard.outputs.deploy == 'true'
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: node scripts/verify-publication.mjs
