@@ -82,7 +82,7 @@ test('module-move triage reaches the exact local practice files without guessing
  await page.screenshot({path:`test-results/module-move-${info.project.name}.png`,fullPage:true});
  for(const theme of ['light','dark']){
   if(theme==='dark')await page.locator('#theme-toggle').click();
-  for(const route of ['recipe/module-move','workflow/module-move']){await page.goto('#'+route);const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations,theme+' '+route).toEqual([]);}
+  for(const route of ['recipe/module-move','workflow/module-move']){await page.goto('#'+route);await expect(page.locator('main h1')).toHaveCount(1);const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations,theme+' '+route).toEqual([]);}
  }
  await page.goto('#lesson/modules-addresses');await page.getByRole('link',{name:'Open the practical guide'}).click();await expect(page).toHaveURL(/#workflow\/module-move$/);
  await page.getByRole('button',{name:'Open search'}).click();await page.locator('#global-search').fill('module refactor');await page.locator('.search-result[href="#recipe/module-move"]').click();await expect(page.getByRole('main')).toBeFocused();
