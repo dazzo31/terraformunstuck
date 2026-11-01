@@ -36,7 +36,7 @@ function render({focus=false}={}){
  const nav=type==='lesson'?'learn':type==='recipe'?'fix':type==='workflow'?'workflows':type;
  $$('[data-nav]').forEach(a=>{const active=a.dataset.nav===nav;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  const title=type==='lesson'?lessons.find(x=>x.id===id)?.title:type==='recipe'?recipes.find(x=>x.id===id)?.title:type==='workflow'?workflows.find(x=>x.id===id)?.title:({home:'Learn, understand, troubleshoot',learn:'Learn Terraform',fix:'Fix a problem',workflows:'Workflows',reference:'Reference',about:'About & privacy'}[type]);
- document.title=(title??'Topic not found')+' — Terraform Unstuck';
+ document.title=(title??'Topic not found')+' · Terraform Unstuck';
  if(type==='fix')for(const key of ['phase','execution','backend','provider','shell'])$(`#context-${key}`).value=draft[key];
  if(route!==currentRoute){window.scrollTo(0,0);if(focus)main.focus({preventScroll:true});}
  currentRoute=route;
